@@ -41,6 +41,16 @@ public class DuelSocket : MonoBehaviour
 			if (cardInteractable.IsSelected(interactor))
 				interactor.interactionManager.SelectCancel((IXRSelectInteractor)interactor, cardInteractable);
 			currentSocketedCard = null;
+
+			// if is duel disk: destroy old duel disk socket
+			DuelDiskSocket duelSocket = this as DuelDiskSocket;
+			if (duelSocket != null)
+			{
+				DuelDisk duelDisk = duelSocket.GetDuelDisk();
+				duelDisk.sockets.Remove(duelSocket);
+				duelDisk.UpdateDuelDisk();
+				Destroy(duelSocket.gameObject);
+			}
 		}
 		else
 			Debug.LogError("DuelSocket attempted to unsocket a card while not having a card.");

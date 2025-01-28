@@ -81,7 +81,7 @@ SpriteRenderer:
   m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1178748990578418950
@@ -507,6 +507,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardStats: {fileID: 11400000, guid: 5179032e916df4e4fb175cb5185a0649, type: 2}
   canBeMoved: 0
+  onSummon:
+    m_PersistentCalls:
+      m_Calls: []
   cardFront: {fileID: 8337498568371500879}
   cardName: {fileID: 2001906200284609786}
   cardArt: {fileID: 3348539907963353763}
@@ -515,6 +518,8 @@ MonoBehaviour:
   cardAttack: {fileID: 7565828213712289397}
   cardHealth: {fileID: 4838341002155462395}
   cardEffect: {fileID: 1761074710122851771}
+  selfSummonEvent: {fileID: 11400000, guid: af544115dba2e0a4894d3602990e6b03, type: 2}
+  anySummonEvent: {fileID: 11400000, guid: 46830117a57bb7c4391dc99f77af2a10, type: 2}
 --- !u!95 &9155958758915437306
 Animator:
   serializedVersion: 5
@@ -617,7 +622,7 @@ SpriteRenderer:
   m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &4883171636669349853

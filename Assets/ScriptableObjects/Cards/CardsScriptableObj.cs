@@ -16,6 +16,7 @@ public class CardsScriptableObj : ScriptableObject
 	[System.Serializable]
 	public struct CardAbility
 	{
+		public GameEvent activationTime;
 		public List<CardEffect> costs;
 		public List<CardEffect> effects;
 	}

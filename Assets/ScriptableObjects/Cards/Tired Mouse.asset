@@ -22,6 +22,7 @@ MonoBehaviour:
 
     Draw a card.'
   cardAbilities:
-  - costs: []
+  - activationTime: {fileID: 11400000, guid: af544115dba2e0a4894d3602990e6b03, type: 2}
+    costs: []
     effects:
     - {fileID: 11400000, guid: 124b4e716e1786c49b822d8a199d7d24, type: 2}

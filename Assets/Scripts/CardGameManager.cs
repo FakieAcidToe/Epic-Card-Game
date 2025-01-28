@@ -20,7 +20,7 @@ public class CardGameManager : MonoBehaviour
 
 	TurnPhase phase = TurnPhase.Start;
 
-	List<Card> allCardsInPlay;
+	public List<Card> allCardsInPlay { get; private set; }
 
 	public enum TurnPhase
 	{
@@ -81,6 +81,7 @@ public class CardGameManager : MonoBehaviour
 	public void SetPhase(TurnPhase _phase)
 	{
 		phase = _phase;
+		UpdateCardLock();
 		switch (phase)
 		{
 			case TurnPhase.Start:
@@ -97,6 +98,23 @@ public class CardGameManager : MonoBehaviour
 				break;
 			case TurnPhase.EndPhase:
 				StartCoroutine(EndPhaseCoroutine());
+				break;
+		}
+	}
+
+	void UpdateCardLock()
+	{
+		switch (phase)
+		{
+			default:
+				// lock all Cards
+				foreach (Card card in allCardsInPlay)
+					card.canBeMoved = false;
+				break;
+			case TurnPhase.MainPhase:
+				// lock opponent Cards only
+				foreach (Card card in allCardsInPlay)
+					card.canBeMoved = turnPlayer == card.GetPlayerNum();
 				break;
 		}
 	}
@@ -154,7 +172,6 @@ public class CardGameManager : MonoBehaviour
 	IEnumerator DrawPhaseCoroutine()
 	{
 		phaseText.text = "Draw Phase";
-		LockAllCardsMovement();
 
 		if (turnCount == 0 || players[turnPlayer].deck.cardsInDeck.Count <= 0) // dont draw on turn 0
 		{
@@ -193,7 +210,6 @@ public class CardGameManager : MonoBehaviour
 	IEnumerator MainPhaseCoroutine()
 	{
 		phaseText.text = "Main Phase";
-		LockOpponentCardsMovement();
 
 		if (players[turnPlayer].isPlayer)
 		{
@@ -213,7 +229,6 @@ public class CardGameManager : MonoBehaviour
 	IEnumerator AttackPhaseCoroutine()
 	{
 		phaseText.text = "Attack Phase";
-		LockAllCardsMovement();
 
 		yield return new WaitForSecondsRealtime(0.5f);
 
@@ -234,7 +249,6 @@ public class CardGameManager : MonoBehaviour
 	IEnumerator EndPhaseCoroutine()
 	{
 		phaseText.text = "End Phase";
-		LockAllCardsMovement();
 
 		yield return new WaitForSecondsRealtime(1);
 
@@ -253,21 +267,10 @@ public class CardGameManager : MonoBehaviour
 		allCardsInPlay.Remove(_card);
 	}
 
-	void LockOpponentCardsMovement()
-	{
-		foreach (Card card in allCardsInPlay)
-			card.canBeMoved = turnPlayer == card.GetPlayerNum();
-	}
-
-	void LockAllCardsMovement()
-	{
-		foreach (Card card in allCardsInPlay)
-			card.canBeMoved = false;
-	}
-
 	public void ForceDrawACard(int _playerNumber)
 	{
 		if (_playerNumber >= 0 && _playerNumber < players.Count)
 			players[_playerNumber].deck.ForceDrawACard(true);
+		UpdateCardLock();
 	}
 }

@@ -32,6 +32,7 @@ public class Card : MonoBehaviour
 
 	public UnityEvent onSummon;
 
+	[Header("Card Part References")]
 	[SerializeField] MeshRenderer cardFront;
 	[SerializeField] TextMeshPro cardName;
 	[SerializeField] SpriteRenderer cardArt;
@@ -41,6 +42,10 @@ public class Card : MonoBehaviour
 	[SerializeField] TextMeshPro cardHealth;
 	[SerializeField] TextMeshPro cardEffect;
 	List<CardsScriptableObj.CardAbility> cardAbilities;
+
+	[Header("Card Events")]
+	[SerializeField] GameEvent selfSummonEvent;
+	[SerializeField] GameEvent anySummonEvent;
 
 	void Awake()
 	{
@@ -66,9 +71,15 @@ public class Card : MonoBehaviour
 	{
 		ChangeState(CardState.table);
 
+		//selfSummonEvent.Raise();
+		anySummonEvent.Raise();
+
 		foreach (CardsScriptableObj.CardAbility ability in cardAbilities)
-			foreach (CardEffect effect in ability.effects)
-				effect.ExecuteEffect(this);
+		{
+			if (ability.activationTime == selfSummonEvent)
+				foreach (CardEffect effect in ability.effects)
+					effect.ExecuteEffect(this);
+		}
 	}
 
 	void RememberSocket(SelectEnterEventArgs arg)
@@ -86,20 +97,11 @@ public class Card : MonoBehaviour
 					// handle destroying/unlinking old sockets
 					if (lastSocket != null)
 					{
+						if (lastSocket is DuelDiskSocket) // if summoned from hand
+							onSummon.Invoke();
+
 						// unlink old duel socket
 						lastSocket.UnsocketCard();
-
-						// if from hand: destroy old duel disk socket
-						DuelDiskSocket lastDuelSocket = lastSocket.GetComponent<DuelDiskSocket>();
-						if (lastDuelSocket != null)
-						{
-							DuelDisk duelDisk = lastDuelSocket.GetDuelDisk();
-							duelDisk.sockets.Remove(lastDuelSocket);
-							duelDisk.UpdateDuelDisk();
-							Destroy(lastDuelSocket.gameObject);
-
-							onSummon.Invoke();
-						}
 					}
 
 					// remember this new socket for later
@@ -206,6 +208,13 @@ public class Card : MonoBehaviour
 		lastSocket = _socket;
 		lastSocket.SocketCard(this, _alsoForceSelectEnter);
 		UpdateHologramStatus();
+	}
+
+	public void DestroyCard()
+	{
+		CardGameManager.instance.UnregisterCard(this);
+		lastSocket.UnsocketCard();
+		Destroy(gameObject);
 	}
 
 	public DuelSocket GetSocket()

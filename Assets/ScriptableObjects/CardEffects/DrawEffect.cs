@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Card Effects/Draw Cards")]
 public class DrawEffect : CardEffect
 {
-	public int drawAmount;
+	[SerializeField] int drawAmount;
 
 	public override void ExecuteEffect(Card _thisCard)
 	{
