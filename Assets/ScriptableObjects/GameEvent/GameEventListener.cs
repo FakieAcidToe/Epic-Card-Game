@@ -13,11 +13,11 @@ public class GameEventListener : MonoBehaviour
 
 	void OnDisable()
 	{
-		Event.RegisterListener(this);
+		Event.UnRegisterListener(this);
 	}
 
 	public void OnEventRaised()
 	{
-		Response.Invoke();
+		Response?.Invoke();
 	}
 }

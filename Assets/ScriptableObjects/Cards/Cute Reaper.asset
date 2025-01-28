@@ -18,5 +18,10 @@ MonoBehaviour:
   cost: 2
   attack: 4
   health: 1
-  effect: 
-  effectEvents: []
+  effect: 'During the End Phase:
+
+    Return this card to hand.'
+  cardAbilities:
+  - activationTime: {fileID: 11400000, guid: 5b304a6bb1b1b1749a47510b8d4f86cd, type: 2}
+    effects:
+    - {fileID: 11400000, guid: 522e877b708b9e346bcf111e49ac095c, type: 2}

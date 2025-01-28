@@ -22,6 +22,8 @@ public class CardGameManager : MonoBehaviour
 
 	public List<Card> allCardsInPlay { get; private set; }
 
+	[SerializeField] GameEvent endPhaseEvent;
+
 	public enum TurnPhase
 	{
 		Start, // draw 5(?) cards to start the game
@@ -237,10 +239,11 @@ public class CardGameManager : MonoBehaviour
 			DuelTableSocket socket = card.GetSocket() as DuelTableSocket;
 			if (socket != null && socket.GetIsFrontRow() && turnPlayer == card.GetPlayerNum())
 			{
-				card.PlayAttackAnim();
+				card.Attack();
 				yield return new WaitForSecondsRealtime(0.1f);
 			}
 		}
+		yield return new WaitForSecondsRealtime(1);
 
 		// next phase
 		SetPhase(TurnPhase.EndPhase);
@@ -250,7 +253,11 @@ public class CardGameManager : MonoBehaviour
 	{
 		phaseText.text = "End Phase";
 
-		yield return new WaitForSecondsRealtime(1);
+		yield return new WaitForSecondsRealtime(0.5f);
+
+		endPhaseEvent.Raise();
+
+		yield return new WaitForSecondsRealtime(0.5f);
 
 		// next phase
 		NextTurnPlayer();

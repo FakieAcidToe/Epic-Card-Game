@@ -1926,7 +1926,7 @@ MonoBehaviour:
   phaseText: {fileID: 1917151894}
   numStartingCards: 5
   turnPlayer: 0
-  summonEvent: {fileID: 11400000, guid: af544115dba2e0a4894d3602990e6b03, type: 2}
+  endPhaseEvent: {fileID: 11400000, guid: 5b304a6bb1b1b1749a47510b8d4f86cd, type: 2}
 --- !u!1 &1917151892
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,7 +17,6 @@ public class CardsScriptableObj : ScriptableObject
 	public struct CardAbility
 	{
 		public GameEvent activationTime;
-		public List<CardEffect> costs;
 		public List<CardEffect> effects;
 	}
 }

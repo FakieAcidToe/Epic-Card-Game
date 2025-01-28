@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Playables;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -30,8 +31,6 @@ public class Card : MonoBehaviour
 
 	public bool canBeMoved = false;
 
-	public UnityEvent onSummon;
-
 	[Header("Card Part References")]
 	[SerializeField] MeshRenderer cardFront;
 	[SerializeField] TextMeshPro cardName;
@@ -46,6 +45,9 @@ public class Card : MonoBehaviour
 	[Header("Card Events")]
 	[SerializeField] GameEvent selfSummonEvent;
 	[SerializeField] GameEvent anySummonEvent;
+	[SerializeField] GameEvent selfAttackingEvent;
+	[SerializeField] GameEvent anyAttackingEvent;
+	[SerializeField] GameEvent endPhaseEvent;
 
 	void Awake()
 	{
@@ -53,8 +55,6 @@ public class Card : MonoBehaviour
 		animator = GetComponent<Animator>();
 		interactable.selectEntered.AddListener(RememberSocket);
 		interactable.lastSelectExited.AddListener(DoGoToLastSocket);
-
-		onSummon.AddListener(SummonActions);
 
 		InitCardInfo();
 		ChangeState(CardState.hand);
@@ -64,7 +64,12 @@ public class Card : MonoBehaviour
 	{
 		interactable.selectEntered.RemoveListener(RememberSocket);
 		interactable.lastSelectExited.RemoveListener(DoGoToLastSocket);
-		onSummon.RemoveListener(SummonActions);
+	}
+
+	void ExecuteEffects(List<CardEffect> _effects)
+	{
+		foreach (CardEffect effect in _effects)
+			effect.ExecuteEffect(this);
 	}
 
 	void SummonActions()
@@ -77,8 +82,16 @@ public class Card : MonoBehaviour
 		foreach (CardsScriptableObj.CardAbility ability in cardAbilities)
 		{
 			if (ability.activationTime == selfSummonEvent)
-				foreach (CardEffect effect in ability.effects)
-					effect.ExecuteEffect(this);
+				ExecuteEffects(ability.effects);
+		}
+	}
+
+	public void EndPhase()
+	{
+		foreach (CardsScriptableObj.CardAbility ability in cardAbilities)
+		{
+			if (ability.activationTime == endPhaseEvent)
+				ExecuteEffects(ability.effects);
 		}
 	}
 
@@ -98,7 +111,7 @@ public class Card : MonoBehaviour
 					if (lastSocket != null)
 					{
 						if (lastSocket is DuelDiskSocket) // if summoned from hand
-							onSummon.Invoke();
+							SummonActions();
 
 						// unlink old duel socket
 						lastSocket.UnsocketCard();
@@ -134,9 +147,18 @@ public class Card : MonoBehaviour
 		animator.SetBool("showHologram", lastSocket == null ? false : lastSocket.shouldShowHologram);
 	}
 
-	public void PlayAttackAnim()
+	public void Attack()
 	{
 		animator.SetTrigger("attackTrigger");
+
+		//selfAttackingEvent.Raise();
+		anyAttackingEvent.Raise();
+
+		foreach (CardsScriptableObj.CardAbility ability in cardAbilities)
+		{
+			if (ability.activationTime == selfAttackingEvent)
+				ExecuteEffects(ability.effects);
+		}
 	}
 
 	void DoGoToLastSocket(SelectExitEventArgs arg)
@@ -215,6 +237,22 @@ public class Card : MonoBehaviour
 		CardGameManager.instance.UnregisterCard(this);
 		lastSocket.UnsocketCard();
 		Destroy(gameObject);
+	}
+
+	public void ReturnToHand()
+	{
+		if (lastSocket is not DuelDiskSocket)
+		{
+			lastSocket.UnsocketCard();
+			SocketCard(CardGameManager.instance.GetPlayers()[playerNumber].duelDisk.AddSocket(), true); // tell the card to go to hand when dropped
+			ChangeState(CardState.hand);
+		}
+	}
+
+	public IEnumerator ReturnToHandNextFrame()
+	{
+		yield return new WaitForNextFrameUnit();
+		ReturnToHand();
 	}
 
 	public DuelSocket GetSocket()

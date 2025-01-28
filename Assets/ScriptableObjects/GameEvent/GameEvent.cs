@@ -20,7 +20,7 @@ public class GameEvent : ScriptableObject
 	{
 		for (int i = gameEventListeners.Count - 1; i >= 0; --i)
 		{
-			gameEventListeners[i].OnEventRaised();
+			gameEventListeners[i]?.OnEventRaised();
 		}
 	}
 }
