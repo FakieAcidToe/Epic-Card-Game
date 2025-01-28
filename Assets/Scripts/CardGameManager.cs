@@ -234,8 +234,9 @@ public class CardGameManager : MonoBehaviour
 
 		yield return new WaitForSecondsRealtime(0.5f);
 
-		foreach (Card card in allCardsInPlay)
+		for (int i = 0; i < allCardsInPlay.Count; ++i)
 		{
+			Card card = allCardsInPlay[i];
 			DuelTableSocket socket = card.GetSocket() as DuelTableSocket;
 			if (socket != null && socket.GetIsFrontRow() && turnPlayer == card.GetPlayerNum())
 			{

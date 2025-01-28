@@ -18,5 +18,10 @@ MonoBehaviour:
   cost: 7
   attack: 6
   health: 6
-  effect: 
-  effectEvents: []
+  effect: 'On summon:
+
+    Destroy all other cards in play.'
+  cardAbilities:
+  - activationTime: {fileID: 11400000, guid: af544115dba2e0a4894d3602990e6b03, type: 2}
+    effects:
+    - {fileID: 11400000, guid: 3e488fde64d45ee4693169b22ce00bcf, type: 2}

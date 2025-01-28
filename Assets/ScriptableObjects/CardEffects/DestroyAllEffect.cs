@@ -11,7 +11,6 @@ public class DestroyAllEffect : CardEffect
 
 	public override void ExecuteEffect(Card _thisCard)
 	{
-
 		int playerNum = _thisCard.GetPlayerNum();
 		for (int i = CardGameManager.instance.allCardsInPlay.Count - 1; i >=0; --i)
 		{
