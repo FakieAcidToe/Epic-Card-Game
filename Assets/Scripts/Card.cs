@@ -30,6 +30,8 @@ public class Card : MonoBehaviour
 	int attack;
 	int health;
 
+	IEnumerator socketCoroutine; // for the 2 sec throwing
+
 	public bool canBeMoved = false;
 
 	[Header("Card Part References")]
@@ -98,6 +100,9 @@ public class Card : MonoBehaviour
 
 	void RememberSocket(SelectEnterEventArgs arg)
 	{
+		if (socketCoroutine != null)
+			StopCoroutine(socketCoroutine);
+
 		XRSocketInteractor socketInteractor = arg.interactorObject as XRSocketInteractor;
 		if (socketInteractor != null) // if interactor is a socket (not hand controller)
 		{
@@ -167,12 +172,22 @@ public class Card : MonoBehaviour
 
 	void DoGoToLastSocket(SelectExitEventArgs arg)
 	{
-		if (gameObject.activeInHierarchy) StartCoroutine(GoToLastSocketNextFrame());
+		if (socketCoroutine != null)
+			StopCoroutine(socketCoroutine);
+		socketCoroutine = GoToLastSocket2Sec();
+
+		if (gameObject.activeInHierarchy) StartCoroutine(socketCoroutine);
 	}
 
 	public IEnumerator GoToLastSocketNextFrame()
 	{
 		yield return new WaitForNextFrameUnit();
+		GoToLastSocket();
+	}
+
+	public IEnumerator GoToLastSocket2Sec()
+	{
+		yield return new WaitForSecondsRealtime(2);
 		GoToLastSocket();
 	}
 
