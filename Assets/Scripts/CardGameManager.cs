@@ -14,9 +14,13 @@ public class CardGameManager : MonoBehaviour
 	[SerializeField] TextMeshProUGUI phaseText;
 
 	[SerializeField] uint numStartingCards = 5;
+	[SerializeField] uint startingLifePoints = 20;
+	[SerializeField] string lifePointsPrependText = "Life: ";
 
 	[SerializeField] int turnPlayer = 0;
 	uint turnCount = 0;
+
+	uint[] lifePoints;
 
 	TurnPhase phase = TurnPhase.Start;
 
@@ -40,6 +44,7 @@ public class CardGameManager : MonoBehaviour
 		public DuelDisk duelDisk;
 		public DrawCard deck;
 		public ButtonFollowVisual button;
+		public TextMeshProUGUI lifeText;
 	}
 
 	void Awake()
@@ -54,17 +59,31 @@ public class CardGameManager : MonoBehaviour
 
 			allCardsInPlay = new List<Card>();
 
+			lifePoints = new uint[players.Count];
+
 			for (int i = 0; i < players.Count; ++i)
 			{
 				players[i].duelDisk.SetPlayerNumber(i);
 				players[i].deck.SetPlayerNumber(i);
+
+				lifePoints[i] = startingLifePoints;
 			}
+
+			UpdateLifePointText();
 		}
 	}
 
 	void Start()
 	{
 		SetPhase(TurnPhase.Start);
+	}
+
+	void OnValidate()
+	{
+		// update life points text
+		for (int i = 0; i < players.Count; ++i)
+			if (players[i].lifeText != null)
+				players[i].lifeText.text = lifePointsPrependText + startingLifePoints.ToString();
 	}
 
 	void NextTurnPlayer()
@@ -119,6 +138,12 @@ public class CardGameManager : MonoBehaviour
 					card.canBeMoved = turnPlayer == card.GetPlayerNum();
 				break;
 		}
+	}
+
+	public void UpdateLifePointText()
+	{
+		for (int i = 0; i < players.Count; ++i)
+			players[i].lifeText.text = lifePointsPrependText + lifePoints[i].ToString();
 	}
 
 	public void ControllerButtonPressed(int _playerNumber)

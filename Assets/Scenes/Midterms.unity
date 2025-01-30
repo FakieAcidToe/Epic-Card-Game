@@ -155,6 +155,17 @@ Transform:
   - {fileID: 1021936940}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &47738047 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 316779299153007677, guid: 5d7e625f8c8084147800d26fbb161ace, type: 3}
+  m_PrefabInstance: {fileID: 1035209656}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &49118851
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -764,6 +775,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b15f3cee5d660bc4fabd5bf6b1d40196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &721358369 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 316779299153007677, guid: 5d7e625f8c8084147800d26fbb161ace, type: 3}
+  m_PrefabInstance: {fileID: 1504969001564730170}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &756192406
@@ -1813,6 +1835,63 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.2943542, y: 0.77991945, z: 1.0581408}
   m_Center: {x: 0, y: 0.38995972, z: 0}
+--- !u!1001 &1763118801
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_Name
+      value: XR Device Simulator
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
 --- !u!1 &1850327511
 GameObject:
   m_ObjectHideFlags: 0
@@ -1862,12 +1941,16 @@ MonoBehaviour:
     duelDisk: {fileID: 1646678593692502774}
     deck: {fileID: 1549270222}
     button: {fileID: 408921544}
+    lifeText: {fileID: 721358369}
   - isPlayer: 0
     duelDisk: {fileID: 1021936941}
     deck: {fileID: 1035209658}
     button: {fileID: 631918857}
+    lifeText: {fileID: 47738047}
   phaseText: {fileID: 1917151894}
   numStartingCards: 5
+  startingLifePoints: 20
+  lifePointsPrependText: 'Life: '
   turnPlayer: 0
   endPhaseEvent: {fileID: 11400000, guid: 5b304a6bb1b1b1749a47510b8d4f86cd, type: 2}
 --- !u!1 &1917151892
@@ -2265,3 +2348,4 @@ SceneRoots:
   - {fileID: 1850327512}
   - {fileID: 2092139010}
   - {fileID: 451872645}
+  - {fileID: 1763118801}
