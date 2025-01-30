@@ -88,10 +88,12 @@ public class CardGameManager : MonoBehaviour
 
 	void NextTurnPlayer()
 	{
-		++turnPlayer;
-		turnPlayer %= players.Count;
-
+		turnPlayer = GetNextTurnPlayerNum();
 		++turnCount;
+	}
+	public int GetNextTurnPlayerNum()
+	{
+		return (turnPlayer + 1) % players.Count;
 	}
 
 	public List<Player> GetPlayers()
@@ -138,6 +140,17 @@ public class CardGameManager : MonoBehaviour
 					card.canBeMoved = turnPlayer == card.GetPlayerNum();
 				break;
 		}
+	}
+
+	public void DamagePlayer(int _damage)
+	{
+		DamagePlayer(_damage, GetNextTurnPlayerNum());
+	}
+
+	public void DamagePlayer(int _damage, int _playerNum)
+	{
+		lifePoints[_playerNum] = lifePoints[_playerNum] > _damage ? (uint)(lifePoints[_playerNum] - _damage) : 0;
+		UpdateLifePointText();
 	}
 
 	public void UpdateLifePointText()

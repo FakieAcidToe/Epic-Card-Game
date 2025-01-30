@@ -27,6 +27,9 @@ public class Card : MonoBehaviour
 	int playerNumber;
 	int origPlayerNumber;
 
+	int attack;
+	int health;
+
 	public bool canBeMoved = false;
 
 	[Header("Card Part References")]
@@ -157,6 +160,9 @@ public class Card : MonoBehaviour
 			if (ability.activationTime == selfAttackingEvent)
 				ExecuteEffects(ability.effects);
 		}
+
+		CardGameManager manager = CardGameManager.instance;
+		manager.DamagePlayer(attack);
 	}
 
 	void DoGoToLastSocket(SelectExitEventArgs arg)
@@ -194,6 +200,9 @@ public class Card : MonoBehaviour
 		cardHealth.text = cardStats.health.ToString();
 		cardEffect.text = cardStats.effect.ToString();
 		cardAbilities = cardStats.cardAbilities;
+
+		attack = cardStats.attack;
+		health = cardStats.health;
 	}
 
 	public void UpdateCardInteractionLayerMask()
