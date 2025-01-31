@@ -111,20 +111,30 @@ public class Card : MonoBehaviour
 			{
 				Card potentialExistingCard = newSocket.GetSocketedCard();
 
-				if (canBeMoved && potentialExistingCard == null) // empty case: check if new socket currently has no card
+				if (newSocket is DuelDiscardSocket) // discard pile
 				{
-					// handle destroying/unlinking old sockets
-					if (lastSocket != null)
+					// gain 1 mana
+					CardGameManager.instance.ConsumeMana(-1);
+					DestroyCard();
+				}
+				else if (canBeMoved && potentialExistingCard == null && lastSocket != null && lastSocket is DuelDiskSocket) // summon from hand case
+				{
+					if (CardGameManager.instance.ConsumeMana(cardStats.cost)) // mana cost
 					{
-						if (lastSocket is DuelDiskSocket) // if summoned from hand
-							SummonActions();
+						SummonActions();
 
 						// unlink old duel socket
 						lastSocket.UnsocketCard();
-					}
 
-					// remember this new socket for later
-					SocketCard(newSocket, false);
+						// remember this new socket for later
+						SocketCard(newSocket, false);
+					}
+					else // insuffucient mana
+					{
+						// tell card to go back to old socket
+						socketInteractor.interactionManager.SelectCancel((IXRSelectInteractor)socketInteractor, interactable);
+						GoToLastSocket();
+					}
 				}
 				else if (canBeMoved && potentialExistingCard != null && lastSocket != null && lastSocket is DuelTableSocket) // swap case: if new socket has card, and this grabbed card has a table socket
 				{
@@ -138,7 +148,15 @@ public class Card : MonoBehaviour
 					SocketCard(newSocket, false);
 					potentialExistingCard.SocketCard(oldSocket, false);
 				}
-				else // failed case: if new socket currently has a card
+				else if (canBeMoved && potentialExistingCard == null) // success case: empty socket
+				{
+					if (lastSocket != null)
+						lastSocket.UnsocketCard(); // unlink old socket
+
+					// remember this new socket for later
+					SocketCard(newSocket, false);
+				}
+				else  // failed case: if new socket currently has a card that's unswappable, or, !canBeMoved
 				{
 					// tell card to go back to old socket
 					socketInteractor.interactionManager.SelectCancel((IXRSelectInteractor)socketInteractor, interactable);
@@ -172,11 +190,18 @@ public class Card : MonoBehaviour
 
 	void DoGoToLastSocket(SelectExitEventArgs arg)
 	{
-		if (socketCoroutine != null)
-			StopCoroutine(socketCoroutine);
-		socketCoroutine = GoToLastSocket2Sec();
+		if (arg.interactorObject is XRSocketInteractor)
+		{
+			StartCoroutine(GoToLastSocketNextFrame());
+		}
+		else
+		{
+			if (socketCoroutine != null)
+				StopCoroutine(socketCoroutine);
+			socketCoroutine = GoToLastSocket2Sec();
 
-		if (gameObject.activeInHierarchy) StartCoroutine(socketCoroutine);
+			if (gameObject.activeInHierarchy) StartCoroutine(socketCoroutine);
+		}
 	}
 
 	public IEnumerator GoToLastSocketNextFrame()

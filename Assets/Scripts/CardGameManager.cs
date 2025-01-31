@@ -16,11 +16,15 @@ public class CardGameManager : MonoBehaviour
 	[SerializeField] uint numStartingCards = 5;
 	[SerializeField] uint startingLifePoints = 20;
 	[SerializeField] string lifePointsPrependText = "Life: ";
+	[SerializeField] uint startingMana = 4;
+	[SerializeField] int manaGainPerTurn = 2;
+	[SerializeField] string manaPrependText = "Mana: ";
 
 	[SerializeField] int turnPlayer = 0;
 	uint turnCount = 0;
 
-	uint[] lifePoints;
+	public uint[] lifePoints { get; private set; }
+	public uint[] mana { get; private set; }
 
 	TurnPhase phase = TurnPhase.Start;
 
@@ -60,6 +64,7 @@ public class CardGameManager : MonoBehaviour
 			allCardsInPlay = new List<Card>();
 
 			lifePoints = new uint[players.Count];
+			mana = new uint[players.Count];
 
 			for (int i = 0; i < players.Count; ++i)
 			{
@@ -67,6 +72,7 @@ public class CardGameManager : MonoBehaviour
 				players[i].deck.SetPlayerNumber(i);
 
 				lifePoints[i] = startingLifePoints;
+				mana[i] = startingMana;
 			}
 
 			UpdateLifePointText();
@@ -83,7 +89,7 @@ public class CardGameManager : MonoBehaviour
 		// update life points text
 		for (int i = 0; i < players.Count; ++i)
 			if (players[i].lifeText != null)
-				players[i].lifeText.text = lifePointsPrependText + startingLifePoints.ToString();
+				players[i].lifeText.text = lifePointsPrependText + startingLifePoints.ToString() + '\n' + manaPrependText + startingMana.ToString();
 	}
 
 	void NextTurnPlayer()
@@ -153,10 +159,26 @@ public class CardGameManager : MonoBehaviour
 		UpdateLifePointText();
 	}
 
+	public bool ConsumeMana(int _amount)
+	{
+		return ConsumeMana(_amount, turnPlayer);
+	}
+
+	public bool ConsumeMana(int _amount, int _playerNum)
+	{
+		if (_amount <= mana[_playerNum])
+		{
+			mana[_playerNum] = (uint)(mana[_playerNum] - _amount);
+			UpdateLifePointText();
+			return true;
+		}
+		return false;
+	}
+
 	public void UpdateLifePointText()
 	{
 		for (int i = 0; i < players.Count; ++i)
-			players[i].lifeText.text = lifePointsPrependText + lifePoints[i].ToString();
+			players[i].lifeText.text = lifePointsPrependText + lifePoints[i].ToString() + '\n' + manaPrependText + mana[i].ToString();
 	}
 
 	public void ControllerButtonPressed(int _playerNumber)
@@ -219,6 +241,9 @@ public class CardGameManager : MonoBehaviour
 		}
 		else
 		{
+			// gain mana
+			ConsumeMana(-manaGainPerTurn);
+
 			if (players[turnPlayer].isPlayer)
 			{
 				players[turnPlayer].deck.canDraw = true;
