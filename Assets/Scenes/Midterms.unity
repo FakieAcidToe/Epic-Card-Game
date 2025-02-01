@@ -1829,7 +1829,7 @@ MonoBehaviour:
   - {fileID: 400700827}
   - {fileID: 1035209658}
   phaseText: {fileID: 1917151894}
-  numStartingCards: 5
+  numStartingCards: 3
   startingLifePoints: 20
   startingMana: 4
   manaGainPerTurn: 2

@@ -13,7 +13,7 @@ public class CardGameManager : MonoBehaviour
 	[SerializeField] List<DuelField> players = new List<DuelField>();
 	[SerializeField] TextMeshProUGUI phaseText;
 
-	[SerializeField] uint numStartingCards = 5;
+	[SerializeField] uint numStartingCards = 3;
 	[SerializeField] uint startingLifePoints = 20;
 	[SerializeField] uint startingMana = 4;
 	[SerializeField] int manaGainPerTurn = 2;
@@ -204,15 +204,16 @@ public class CardGameManager : MonoBehaviour
 	{
 		phaseText.text = "Draw Phase";
 
+		// gain mana
+		if (turnCount > 0) // dont gain mana on turn 0
+			ConsumeMana(-manaGainPerTurn);
+
 		if (turnCount == 0 || players[turnPlayer].deck.cardsInDeck.Count <= 0) // dont draw on turn 0
 		{
 			yield return new WaitForSecondsRealtime(1);
 		}
 		else
 		{
-			// gain mana
-			ConsumeMana(-manaGainPerTurn);
-
 			if (players[turnPlayer].isPlayer)
 			{
 				players[turnPlayer].deck.canDraw = true;
