@@ -49,6 +49,7 @@ public class CardGameManager : MonoBehaviour
 
 			for (int i = 0; i < players.Count; ++i)
 			{
+				players[i].deck.ShuffleDeck();
 				players[i].SetPlayerNumber(i);
 				players[i].InitLifeMana(startingLifePoints, startingMana);
 			}
@@ -270,16 +271,17 @@ public class CardGameManager : MonoBehaviour
 
 		yield return new WaitForSecondsRealtime(0.5f);
 
-		for (int i = 0; i < allCardsInPlay.Count; ++i)
+		List<DuelTableSocket> sockets = players[turnPlayer].frontTableSockets;
+		int targetPlayerNum = GetNextTurnPlayerNum();
+
+		for (int i = 0; i < sockets.Count; ++i)
 		{
-			Card card = allCardsInPlay[i];
-			DuelTableSocket socket = card.GetSocket() as DuelTableSocket;
-			if (socket != null && socket.GetIsFrontRow() && turnPlayer == card.GetPlayerNum())
-			{
-				card.Attack();
-				yield return new WaitForSecondsRealtime(0.1f);
-			}
+			Card attackingCard = sockets[i].GetSocketedCard();
+			if (attackingCard != null)
+				attackingCard.Attack(targetPlayerNum, sockets.Count - 1 - i);
+			yield return new WaitForSecondsRealtime(0.3f);
 		}
+
 		yield return new WaitForSecondsRealtime(1);
 
 		// next phase

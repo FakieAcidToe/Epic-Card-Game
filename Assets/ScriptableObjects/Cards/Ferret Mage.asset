@@ -16,7 +16,7 @@ MonoBehaviour:
   cardName: Ferret Mage
   artwork: {fileID: -1884550995, guid: 3a1a8ebea175ddd44b38090bf444cfae, type: 3}
   cost: 1
-  attack: 2
+  attack: 1
   health: 2
   effect: 
-  effectEvents: []
+  cardAbilities: []

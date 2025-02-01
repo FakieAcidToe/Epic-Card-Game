@@ -16,7 +16,7 @@ MonoBehaviour:
   cardName: Gedowboy
   artwork: {fileID: 1396538600, guid: 3a1a8ebea175ddd44b38090bf444cfae, type: 3}
   cost: 1
-  attack: 3
+  attack: 2
   health: 1
   effect: 
-  effectEvents: []
+  cardAbilities: []

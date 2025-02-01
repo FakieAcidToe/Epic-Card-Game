@@ -29,13 +29,13 @@ public class CardPlayerCPU : MonoBehaviour
 	Card GetPlayableCard(DuelField _player)
 	{
 		List<Card> cardsInHand = _player.duelDisk.GetAllCardsInHand();
-		return GetPlayableCard(cardsInHand);
+		return GetPlayableCard(_player, cardsInHand);
 	}
 
-	Card GetPlayableCard(List<Card> _cardsInHand)
+	Card GetPlayableCard(DuelField _player, List<Card> _cardsInHand)
 	{
 		foreach (Card card in _cardsInHand)
-			if (card.cardStats.cost <= 2)
+			if (card.cardStats.cost <= _player.GetMana())
 				return card;
 		return null;
 	}

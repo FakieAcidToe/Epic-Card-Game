@@ -15,7 +15,7 @@ MonoBehaviour:
   colour: {fileID: 2100000, guid: 2bbb6dc6dadb3284e8ee14abb21af440, type: 2}
   cardName: Unicorn
   artwork: {fileID: 1299568195, guid: 3a1a8ebea175ddd44b38090bf444cfae, type: 3}
-  cost: 4
+  cost: 5
   attack: 5
   health: 5
   effect: 'On summon:

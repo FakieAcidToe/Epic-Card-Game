@@ -171,7 +171,7 @@ public class Card : MonoBehaviour
 		animator.SetBool("showHologram", lastSocket == null ? false : lastSocket.shouldShowHologram);
 	}
 
-	public void Attack()
+	public void Attack(int _playerNum, int _slotNum)
 	{
 		animator.SetTrigger("attackTrigger");
 
@@ -185,7 +185,39 @@ public class Card : MonoBehaviour
 		}
 
 		CardGameManager manager = CardGameManager.instance;
-		manager.DamagePlayer(attack);
+		DuelField damagedPlayer = manager.GetPlayers()[_playerNum];
+		Card damagedCard = damagedPlayer.frontTableSockets[_slotNum].GetSocketedCard();
+		int damageAmount = attack;
+
+		if (damagedCard != null) // damage defending card
+		{
+			damageAmount = damagedCard.TakeDamage(damageAmount);
+
+			if (damageAmount > 0) // bleedthrough excess damage
+			{
+				damagedCard = damagedPlayer.backTableSockets[_slotNum].GetSocketedCard();
+				if (damagedCard != null) // damage 2nd defending card
+					damagedCard.TakeDamage(damageAmount);
+				else // no 2nd defending card
+					manager.DamagePlayer(attack, _playerNum);
+			}
+		}
+		else // no defending card
+			manager.DamagePlayer(attack, _playerNum);
+	}
+
+	public int TakeDamage(int _damage)
+	{
+		int excessDamage = _damage - health;
+		if (excessDamage < 0) excessDamage = 0;
+
+		health -= _damage;
+		if (health < 0) health = 0;
+		cardHealth.text = health.ToString(); // update text
+
+		if (health == 0) DestroyCard();
+
+		return excessDamage; // return extra damage for bleedthrough
 	}
 
 	void DoGoToLastSocket(SelectExitEventArgs arg)

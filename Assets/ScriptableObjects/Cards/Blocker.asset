@@ -15,8 +15,8 @@ MonoBehaviour:
   colour: {fileID: 2100000, guid: 2bbb6dc6dadb3284e8ee14abb21af440, type: 2}
   cardName: Blocker
   artwork: {fileID: 330813062, guid: 3a1a8ebea175ddd44b38090bf444cfae, type: 3}
-  cost: 2
+  cost: 3
   attack: 0
   health: 6
   effect: 
-  effectEvents: []
+  cardAbilities: []

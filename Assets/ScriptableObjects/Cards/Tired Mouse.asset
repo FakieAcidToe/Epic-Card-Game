@@ -15,7 +15,7 @@ MonoBehaviour:
   colour: {fileID: 2100000, guid: 2bbb6dc6dadb3284e8ee14abb21af440, type: 2}
   cardName: Tired Mouse
   artwork: {fileID: 769393791, guid: 3a1a8ebea175ddd44b38090bf444cfae, type: 3}
-  cost: 2
+  cost: 3
   attack: 4
   health: 1
   effect: 'On summon:
@@ -23,6 +23,5 @@ MonoBehaviour:
     Draw a card.'
   cardAbilities:
   - activationTime: {fileID: 11400000, guid: af544115dba2e0a4894d3602990e6b03, type: 2}
-    costs: []
     effects:
     - {fileID: 11400000, guid: 124b4e716e1786c49b822d8a199d7d24, type: 2}

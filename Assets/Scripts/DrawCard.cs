@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -25,6 +26,7 @@ public class DrawCard : MonoBehaviour
 	public bool canDraw = false;
 
 	public List<CardsScriptableObj> cardsInDeck;
+	[SerializeField] bool shuffleButton = false;
 
 	public UnityEvent onDraw;
 
@@ -88,6 +90,11 @@ public class DrawCard : MonoBehaviour
 	{
 		if (!spawnPosition) spawnPosition = transform;
 		//UpdateDeckHeight();
+		if (shuffleButton)
+		{
+			ShuffleDeck();
+			shuffleButton = false;
+		}
 	}
 
 	public void UpdateDeckHeight()
@@ -104,5 +111,16 @@ public class DrawCard : MonoBehaviour
 	public int GetPlayerNumber()
 	{
 		return playerNumber;
+	}
+
+	public void ShuffleDeck()
+	{
+		for (int i = 0; i < cardsInDeck.Count; ++i)
+		{
+			CardsScriptableObj temp = cardsInDeck[i];
+			int randomIndex = Random.Range(i, cardsInDeck.Count);
+			cardsInDeck[i] = cardsInDeck[randomIndex];
+			cardsInDeck[randomIndex] = temp;
+		}
 	}
 }

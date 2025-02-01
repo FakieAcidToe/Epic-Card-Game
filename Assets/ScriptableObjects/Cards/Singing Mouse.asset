@@ -18,10 +18,5 @@ MonoBehaviour:
   cost: 2
   attack: 1
   health: 4
-  effect: 'During the End Phase:
-
-    Draw a card.'
-  cardAbilities:
-  - activationTime: {fileID: 11400000, guid: 5b304a6bb1b1b1749a47510b8d4f86cd, type: 2}
-    effects:
-    - {fileID: 11400000, guid: 124b4e716e1786c49b822d8a199d7d24, type: 2}
+  effect: 
+  cardAbilities: []

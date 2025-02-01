@@ -16,8 +16,8 @@ MonoBehaviour:
   cardName: Rage Alicorn
   artwork: {fileID: -261892488, guid: 3a1a8ebea175ddd44b38090bf444cfae, type: 3}
   cost: 7
-  attack: 6
-  health: 6
+  attack: 5
+  health: 8
   effect: 'On summon:
 
     Destroy all other cards in play.'
