@@ -156,17 +156,6 @@ Transform:
   - {fileID: 1021936940}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &47738047 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 316779299153007677, guid: 5d7e625f8c8084147800d26fbb161ace, type: 3}
-  m_PrefabInstance: {fileID: 1035209656}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &49118851
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -460,15 +449,15 @@ Transform:
   - {fileID: 756192408}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &408921544 stripped
+--- !u!114 &400700827 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2715168422150809023, guid: 5d7e625f8c8084147800d26fbb161ace, type: 3}
+  m_CorrespondingSourceObject: {fileID: 190397030025703881, guid: 5d7e625f8c8084147800d26fbb161ace, type: 3}
   m_PrefabInstance: {fileID: 1504969001564730170}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b15f3cee5d660bc4fabd5bf6b1d40196, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ad42ab858dff864695c594bc15d1481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &417421987 stripped
@@ -767,28 +756,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 1.3}
   m_SizeDelta: {x: 2000, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &631918857 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2715168422150809023, guid: 5d7e625f8c8084147800d26fbb161ace, type: 3}
-  m_PrefabInstance: {fileID: 1035209656}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b15f3cee5d660bc4fabd5bf6b1d40196, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &721358369 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 316779299153007677, guid: 5d7e625f8c8084147800d26fbb161ace, type: 3}
-  m_PrefabInstance: {fileID: 1504969001564730170}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &756192406
 GameObject:
   m_ObjectHideFlags: 0
@@ -1215,6 +1182,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1758371412}
     m_Modifications:
+    - target: {fileID: 190397030025703881, guid: 5d7e625f8c8084147800d26fbb161ace, type: 3}
+      propertyPath: duelDisk
+      value: 
+      objectReference: {fileID: 1021936941}
+    - target: {fileID: 190397030025703881, guid: 5d7e625f8c8084147800d26fbb161ace, type: 3}
+      propertyPath: isPlayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 316779299153007677, guid: 5d7e625f8c8084147800d26fbb161ace, type: 3}
       propertyPath: m_text
       value: 'Life: 20
@@ -1325,13 +1300,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1035209658 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6946452711138925133, guid: 5d7e625f8c8084147800d26fbb161ace, type: 3}
+  m_CorrespondingSourceObject: {fileID: 190397030025703881, guid: 5d7e625f8c8084147800d26fbb161ace, type: 3}
   m_PrefabInstance: {fileID: 1035209656}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b47af3e5b11f0b4e81527d96861ee2a, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ad42ab858dff864695c594bc15d1481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1068975262
@@ -1513,17 +1488,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01f69dc1cb084aa42b2f2f8cd87bc770, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1549270222 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6946452711138925133, guid: 5d7e625f8c8084147800d26fbb161ace, type: 3}
-  m_PrefabInstance: {fileID: 1504969001564730170}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b47af3e5b11f0b4e81527d96861ee2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1719369473
@@ -1826,6 +1790,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1850327512}
   - component: {fileID: 1850327513}
+  - component: {fileID: 1850327514}
   m_Layer: 0
   m_Name: CardGameManager
   m_TagString: Untagged
@@ -1861,25 +1826,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   players:
-  - isPlayer: 1
-    duelDisk: {fileID: 1646678593692502774}
-    deck: {fileID: 1549270222}
-    button: {fileID: 408921544}
-    lifeText: {fileID: 721358369}
-  - isPlayer: 0
-    duelDisk: {fileID: 1021936941}
-    deck: {fileID: 1035209658}
-    button: {fileID: 631918857}
-    lifeText: {fileID: 47738047}
+  - {fileID: 400700827}
+  - {fileID: 1035209658}
   phaseText: {fileID: 1917151894}
   numStartingCards: 5
   startingLifePoints: 20
-  lifePointsPrependText: 'Life: '
   startingMana: 4
   manaGainPerTurn: 2
-  manaPrependText: 'Mana: '
   turnPlayer: 0
   endPhaseEvent: {fileID: 11400000, guid: 5b304a6bb1b1b1749a47510b8d4f86cd, type: 2}
+--- !u!114 &1850327514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850327511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df32ccafc2db59348a9baff759c2c67e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1917151892
 GameObject:
   m_ObjectHideFlags: 0
@@ -2237,7 +2204,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2002127366}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2350,11 +2317,15 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1758371412}
     m_Modifications:
+    - target: {fileID: 190397030025703881, guid: 5d7e625f8c8084147800d26fbb161ace, type: 3}
+      propertyPath: duelDisk
+      value: 
+      objectReference: {fileID: 1646678593692502774}
     - target: {fileID: 316779299153007677, guid: 5d7e625f8c8084147800d26fbb161ace, type: 3}
       propertyPath: m_text
       value: 'Life: 20
 
-        Mana: 4'
+        Mana: 2'
       objectReference: {fileID: 0}
     - target: {fileID: 834709235030079730, guid: 5d7e625f8c8084147800d26fbb161ace, type: 3}
       propertyPath: m_HoverExited.m_PersistentCalls.m_Calls.Array.size

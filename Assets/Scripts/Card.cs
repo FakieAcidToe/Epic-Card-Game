@@ -111,7 +111,7 @@ public class Card : MonoBehaviour
 			{
 				Card potentialExistingCard = newSocket.GetSocketedCard();
 
-				if (newSocket is DuelDiscardSocket) // discard pile
+				if (canBeMoved && newSocket is DuelDiscardSocket) // discard pile
 				{
 					// gain 1 mana
 					CardGameManager.instance.ConsumeMana(-1);
@@ -277,6 +277,11 @@ public class Card : MonoBehaviour
 		lastSocket = _socket;
 		lastSocket.SocketCard(this, _alsoForceSelectEnter);
 		UpdateHologramStatus();
+	}
+
+	public void PlayCard(DuelSocket _socket)
+	{
+		_socket.SocketCard(this, true);
 	}
 
 	public void DestroyCard()

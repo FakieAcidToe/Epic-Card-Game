@@ -10,25 +10,21 @@ public class CardGameManager : MonoBehaviour
 {
 	public static CardGameManager instance { get; private set; }
 
-	[SerializeField] List<Player> players = new List<Player>();
+	[SerializeField] List<DuelField> players = new List<DuelField>();
 	[SerializeField] TextMeshProUGUI phaseText;
 
 	[SerializeField] uint numStartingCards = 5;
 	[SerializeField] uint startingLifePoints = 20;
-	[SerializeField] string lifePointsPrependText = "Life: ";
 	[SerializeField] uint startingMana = 4;
 	[SerializeField] int manaGainPerTurn = 2;
-	[SerializeField] string manaPrependText = "Mana: ";
 
 	[SerializeField] int turnPlayer = 0;
 	uint turnCount = 0;
 
-	public uint[] lifePoints { get; private set; }
-	public uint[] mana { get; private set; }
-
 	TurnPhase phase = TurnPhase.Start;
 
 	public List<Card> allCardsInPlay { get; private set; }
+	CardPlayerCPU cpu;
 
 	[SerializeField] GameEvent endPhaseEvent;
 
@@ -41,41 +37,21 @@ public class CardGameManager : MonoBehaviour
 		EndPhase // pass to next player in draw phase
 	}
 
-	[System.Serializable]
-	public struct Player
-	{
-		public bool isPlayer;
-		public DuelDisk duelDisk;
-		public DrawCard deck;
-		public ButtonFollowVisual button;
-		public TextMeshProUGUI lifeText;
-	}
-
 	void Awake()
 	{
-		if (instance != null && instance != this)
-		{
-			Destroy(this);
-		}
+		if (instance != null && instance != this) Destroy(this);
 		else
 		{
 			instance = this;
 
 			allCardsInPlay = new List<Card>();
-
-			lifePoints = new uint[players.Count];
-			mana = new uint[players.Count];
+			cpu = GetComponent<CardPlayerCPU>();
 
 			for (int i = 0; i < players.Count; ++i)
 			{
-				players[i].duelDisk.SetPlayerNumber(i);
-				players[i].deck.SetPlayerNumber(i);
-
-				lifePoints[i] = startingLifePoints;
-				mana[i] = startingMana;
+				players[i].SetPlayerNumber(i);
+				players[i].InitLifeMana(startingLifePoints, startingMana);
 			}
-
-			UpdateLifePointText();
 		}
 	}
 
@@ -88,8 +64,8 @@ public class CardGameManager : MonoBehaviour
 	{
 		// update life points text
 		for (int i = 0; i < players.Count; ++i)
-			if (players[i].lifeText != null)
-				players[i].lifeText.text = lifePointsPrependText + startingLifePoints.ToString() + '\n' + manaPrependText + startingMana.ToString();
+			if (players[i] != null)
+				players[i].InitLifeMana(startingLifePoints, startingMana);
 	}
 
 	void NextTurnPlayer()
@@ -102,7 +78,7 @@ public class CardGameManager : MonoBehaviour
 		return (turnPlayer + 1) % players.Count;
 	}
 
-	public List<Player> GetPlayers()
+	public List<DuelField> GetPlayers()
 	{
 		return players;
 	}
@@ -155,8 +131,7 @@ public class CardGameManager : MonoBehaviour
 
 	public void DamagePlayer(int _damage, int _playerNum)
 	{
-		lifePoints[_playerNum] = lifePoints[_playerNum] > _damage ? (uint)(lifePoints[_playerNum] - _damage) : 0;
-		UpdateLifePointText();
+		players[_playerNum].DamagePlayer(_damage);
 	}
 
 	public bool ConsumeMana(int _amount)
@@ -166,19 +141,13 @@ public class CardGameManager : MonoBehaviour
 
 	public bool ConsumeMana(int _amount, int _playerNum)
 	{
-		if (_amount <= mana[_playerNum])
-		{
-			mana[_playerNum] = (uint)(mana[_playerNum] - _amount);
-			UpdateLifePointText();
-			return true;
-		}
-		return false;
+		return players[_playerNum].ConsumeMana(_amount);
 	}
 
-	public void UpdateLifePointText()
+	public void UpdateAllLifePointText()
 	{
 		for (int i = 0; i < players.Count; ++i)
-			players[i].lifeText.text = lifePointsPrependText + lifePoints[i].ToString() + '\n' + manaPrependText + mana[i].ToString();
+			players[i].UpdateLifePointText();
 	}
 
 	public void ControllerButtonPressed(int _playerNumber)
@@ -202,7 +171,7 @@ public class CardGameManager : MonoBehaviour
 		while (true)
 		{
 			bool allLoaded = true;
-			foreach (Player player in players)
+			foreach (DuelField player in players)
 				if (player.duelDisk == null || !player.duelDisk.isActiveAndEnabled)
 				{
 					allLoaded = false;
@@ -223,7 +192,7 @@ public class CardGameManager : MonoBehaviour
 		// draw 5 (numStartingCards) cards each
 		for (uint i = 0; i < numStartingCards; ++i)
 		{
-			foreach (Player player in players) player.deck.ForceDrawACard(true);
+			foreach (DuelField player in players) player.deck.ForceDrawACard(true);
 			yield return new WaitForSecondsRealtime(0.2f);
 		}
 
@@ -283,12 +252,15 @@ public class CardGameManager : MonoBehaviour
 		}
 		else
 		{
-			yield return new WaitForSecondsRealtime(1);
+			yield return StartCoroutine(cpu.PerformMainPhase(players[turnPlayer]));
 			players[turnPlayer].button.ForcePressButton();
 		}
 
 		// next phase
-		SetPhase(TurnPhase.AttackPhase);
+		if (turnCount == 0) // dont attack on turn 0
+			SetPhase(TurnPhase.EndPhase);
+		else
+			SetPhase(TurnPhase.AttackPhase);
 	}
 
 	IEnumerator AttackPhaseCoroutine()

@@ -77,4 +77,12 @@ public class DuelDisk : MonoBehaviour
 	{
 		return playerNumber;
 	}
+
+	public List<Card> GetAllCardsInHand()
+	{
+		List<Card> cards = new List<Card>();
+		foreach (DuelSocket socket in sockets)
+			cards.Add(socket.GetSocketedCard());
+		return cards;
+	}
 }
