@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 62f54ad21c8e1ad4285e28a2dcf774a0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - phaseText: {instanceID: 0}
+  - endPhaseEvent: {fileID: 11400000, guid: 5b304a6bb1b1b1749a47510b8d4f86cd, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

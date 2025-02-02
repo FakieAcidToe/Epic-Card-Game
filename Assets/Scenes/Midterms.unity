@@ -1238,7 +1238,15 @@ PrefabInstance:
       propertyPath: m_InteractionLayers.m_Bits
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 1798842221606006971, guid: 5d7e625f8c8084147800d26fbb161ace, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2110026803517231270, guid: 5d7e625f8c8084147800d26fbb161ace, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2709254144889296527, guid: 5d7e625f8c8084147800d26fbb161ace, type: 3}
       propertyPath: m_InteractionLayers.m_Bits
       value: 8
       objectReference: {fileID: 0}
@@ -1316,6 +1324,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6946452711138925133, guid: 5d7e625f8c8084147800d26fbb161ace, type: 3}
       propertyPath: cardTableLayerMask.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6970133404251077168, guid: 5d7e625f8c8084147800d26fbb161ace, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8549466200755791069, guid: 5d7e625f8c8084147800d26fbb161ace, type: 3}

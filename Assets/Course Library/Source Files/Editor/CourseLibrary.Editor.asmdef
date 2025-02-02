@@ -1,0 +1,19 @@
+{
+    "name": "CourseLibrary.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:190979c3ed6e41c448f5e9925429edf9",
+        "GUID:0197cb6648890974b8aeac438bd48a08"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

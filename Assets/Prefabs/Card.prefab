@@ -314,11 +314,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5545753254922068148}
+  - component: {fileID: 8414668439977029035}
+  - component: {fileID: 2247174526839531631}
+  - component: {fileID: 9155958758915437306}
   - component: {fileID: 998930558121740437}
   - component: {fileID: 3450263377834300427}
-  - component: {fileID: 8414668439977029035}
-  - component: {fileID: 9155958758915437306}
-  - component: {fileID: 2247174526839531631}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -344,6 +344,82 @@ Transform:
   - {fileID: 8853971863400471388}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8414668439977029035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3786194915344501729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abb66e331dfe53f4c86f7a26ad12d09a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardStats: {fileID: 11400000, guid: 5179032e916df4e4fb175cb5185a0649, type: 2}
+  canBeMoved: 0
+  cardFront: {fileID: 8337498568371500879}
+  cardName: {fileID: 2001906200284609786}
+  cardArt: {fileID: 3348539907963353763}
+  cardHologramArt: {fileID: 1969568027590645232}
+  cardCost: {fileID: 3002630013885018471}
+  cardAttack: {fileID: 7565828213712289397}
+  cardHealth: {fileID: 4838341002155462395}
+  cardEffect: {fileID: 1761074710122851771}
+  selfSummonEvent: {fileID: 11400000, guid: af544115dba2e0a4894d3602990e6b03, type: 2}
+  anySummonEvent: {fileID: 11400000, guid: 46830117a57bb7c4391dc99f77af2a10, type: 2}
+  selfAttackingEvent: {fileID: 11400000, guid: 862d115f3a0a01846b5879f3ae11500f, type: 2}
+  anyAttackingEvent: {fileID: 11400000, guid: 2249082a0583354468a93b206345d851, type: 2}
+  endPhaseEvent: {fileID: 11400000, guid: 5b304a6bb1b1b1749a47510b8d4f86cd, type: 2}
+--- !u!114 &2247174526839531631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3786194915344501729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373ff2347e1a92843b60e9b9f8bbf226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 5b304a6bb1b1b1749a47510b8d4f86cd, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8414668439977029035}
+        m_TargetAssemblyTypeName: Card, Assembly-CSharp
+        m_MethodName: EndPhase
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!95 &9155958758915437306
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3786194915344501729}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 61b9e99a333f7c94aabbc1f7a38e4055, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!54 &998930558121740437
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -503,82 +579,6 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 1
---- !u!114 &8414668439977029035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3786194915344501729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abb66e331dfe53f4c86f7a26ad12d09a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardStats: {fileID: 11400000, guid: 5179032e916df4e4fb175cb5185a0649, type: 2}
-  canBeMoved: 0
-  cardFront: {fileID: 8337498568371500879}
-  cardName: {fileID: 2001906200284609786}
-  cardArt: {fileID: 3348539907963353763}
-  cardHologramArt: {fileID: 1969568027590645232}
-  cardCost: {fileID: 3002630013885018471}
-  cardAttack: {fileID: 7565828213712289397}
-  cardHealth: {fileID: 4838341002155462395}
-  cardEffect: {fileID: 1761074710122851771}
-  selfSummonEvent: {fileID: 11400000, guid: af544115dba2e0a4894d3602990e6b03, type: 2}
-  anySummonEvent: {fileID: 11400000, guid: 46830117a57bb7c4391dc99f77af2a10, type: 2}
-  selfAttackingEvent: {fileID: 11400000, guid: 862d115f3a0a01846b5879f3ae11500f, type: 2}
-  anyAttackingEvent: {fileID: 11400000, guid: 2249082a0583354468a93b206345d851, type: 2}
-  endPhaseEvent: {fileID: 11400000, guid: 5b304a6bb1b1b1749a47510b8d4f86cd, type: 2}
---- !u!95 &9155958758915437306
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3786194915344501729}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 61b9e99a333f7c94aabbc1f7a38e4055, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2247174526839531631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3786194915344501729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 373ff2347e1a92843b60e9b9f8bbf226, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: 5b304a6bb1b1b1749a47510b8d4f86cd, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8414668439977029035}
-        m_TargetAssemblyTypeName: Card, Assembly-CSharp
-        m_MethodName: EndPhase
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &4405542412932707318
 GameObject:
   m_ObjectHideFlags: 0
