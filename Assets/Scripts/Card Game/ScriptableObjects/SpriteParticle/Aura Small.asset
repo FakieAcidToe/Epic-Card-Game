@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f4c5af5d38b9e346bd5ea45ab0bc21c, type: 3}
+  m_Name: Aura Small
+  m_EditorClassIdentifier: 
+  spriteAnimation:
+  - {fileID: -1949753742, guid: 64f8763557412d649a1792ccaa4d8561, type: 3}
+  - {fileID: -602711894, guid: 64f8763557412d649a1792ccaa4d8561, type: 3}
+  - {fileID: 1123388472, guid: 64f8763557412d649a1792ccaa4d8561, type: 3}
+  - {fileID: 218260139, guid: 64f8763557412d649a1792ccaa4d8561, type: 3}
+  - {fileID: -1941911706, guid: 64f8763557412d649a1792ccaa4d8561, type: 3}
+  - {fileID: -75814025, guid: 64f8763557412d649a1792ccaa4d8561, type: 3}
+  timeSecondsPerFrame: 0.06

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f4c5af5d38b9e346bd5ea45ab0bc21c, type: 3}
+  m_Name: Ice Small
+  m_EditorClassIdentifier: 
+  spriteAnimation:
+  - {fileID: -350213134, guid: be2834be21089f54fa11a28c7c64c563, type: 3}
+  - {fileID: -207515870, guid: be2834be21089f54fa11a28c7c64c563, type: 3}
+  - {fileID: 1681125674, guid: be2834be21089f54fa11a28c7c64c563, type: 3}
+  - {fileID: 1981402340, guid: be2834be21089f54fa11a28c7c64c563, type: 3}
+  timeSecondsPerFrame: 0.05

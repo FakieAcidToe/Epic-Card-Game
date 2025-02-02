@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f4c5af5d38b9e346bd5ea45ab0bc21c, type: 3}
+  m_Name: Spark Large
+  m_EditorClassIdentifier: 
+  spriteAnimation:
+  - {fileID: -2007467854, guid: f8ac85b308f3e404d9f8e6d134118b91, type: 3}
+  - {fileID: -862554940, guid: f8ac85b308f3e404d9f8e6d134118b91, type: 3}
+  - {fileID: -1256817931, guid: f8ac85b308f3e404d9f8e6d134118b91, type: 3}
+  - {fileID: -889636058, guid: f8ac85b308f3e404d9f8e6d134118b91, type: 3}
+  - {fileID: 1903971387, guid: f8ac85b308f3e404d9f8e6d134118b91, type: 3}
+  - {fileID: -650858449, guid: f8ac85b308f3e404d9f8e6d134118b91, type: 3}
+  - {fileID: 1244764231, guid: f8ac85b308f3e404d9f8e6d134118b91, type: 3}
+  - {fileID: -1716103473, guid: f8ac85b308f3e404d9f8e6d134118b91, type: 3}
+  timeSecondsPerFrame: 0.05

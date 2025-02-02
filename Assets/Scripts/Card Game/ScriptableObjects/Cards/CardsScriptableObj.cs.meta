@@ -5,7 +5,8 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - colour: {fileID: 2100000, guid: 2bbb6dc6dadb3284e8ee14abb21af440, type: 2}
-  - artwork: {fileID: -281843680, guid: 3a1a8ebea175ddd44b38090bf444cfae, type: 3}
+  - artwork: {fileID: 1299568195, guid: 3a1a8ebea175ddd44b38090bf444cfae, type: 3}
+  - spawnParticleSprite: {fileID: 11400000, guid: c5c88bc8d44b16241b11df83fd6b794b, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

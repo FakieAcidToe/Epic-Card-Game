@@ -137,7 +137,13 @@ public class Card : MonoBehaviour
 					if (CardGameManager.instance.ConsumeMana(cardStats.cost)) // mana cost
 					{
 						SummonActions();
-		
+						DuelTableSocket tableSocket = newSocket as DuelTableSocket;
+						if (tableSocket != null)
+						{
+							tableSocket.ParticleBurst();
+							tableSocket.PlaySpriteParticle(cardStats.spawnParticleSprite);
+						}
+
 						// unlink old duel socket
 						lastSocket.UnsocketCard();
 		

@@ -10,6 +10,7 @@ public class CardsScriptableObj : ScriptableObject
 	public int cost;
 	public int attack;
 	public int health;
+	public SpriteParticle spawnParticleSprite;
 	[TextArea] public string effect;
 	public List<CardAbility> cardAbilities;
 

@@ -18,6 +18,7 @@ MonoBehaviour:
   cost: 3
   attack: 4
   health: 1
+  spawnParticleSprite: {fileID: 11400000, guid: c5c88bc8d44b16241b11df83fd6b794b, type: 2}
   effect: 'During the End Phase:
 
     Return this card to hand.'

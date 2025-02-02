@@ -18,6 +18,7 @@ MonoBehaviour:
   cost: 7
   attack: 5
   health: 8
+  spawnParticleSprite: {fileID: 11400000, guid: 70c162091f2b2334bbd89b175055a994, type: 2}
   effect: 'On summon:
 
     Destroy all other cards in play.'

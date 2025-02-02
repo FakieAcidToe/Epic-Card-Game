@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f4c5af5d38b9e346bd5ea45ab0bc21c, type: 3}
+  m_Name: Paw
+  m_EditorClassIdentifier: 
+  spriteAnimation:
+  - {fileID: -1103700690, guid: ed1901a39fca15d40a4c6901b1795944, type: 3}
+  - {fileID: 735795911, guid: ed1901a39fca15d40a4c6901b1795944, type: 3}
+  - {fileID: 2082018683, guid: ed1901a39fca15d40a4c6901b1795944, type: 3}
+  - {fileID: -1081749356, guid: ed1901a39fca15d40a4c6901b1795944, type: 3}
+  - {fileID: 1199299475, guid: ed1901a39fca15d40a4c6901b1795944, type: 3}
+  - {fileID: 833090735, guid: ed1901a39fca15d40a4c6901b1795944, type: 3}
+  - {fileID: 1522793861, guid: ed1901a39fca15d40a4c6901b1795944, type: 3}
+  - {fileID: 924633316, guid: ed1901a39fca15d40a4c6901b1795944, type: 3}
+  - {fileID: -587163399, guid: ed1901a39fca15d40a4c6901b1795944, type: 3}
+  timeSecondsPerFrame: 0.05

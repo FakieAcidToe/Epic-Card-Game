@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f4c5af5d38b9e346bd5ea45ab0bc21c, type: 3}
+  m_Name: Spark Small
+  m_EditorClassIdentifier: 
+  spriteAnimation:
+  - {fileID: -1861832606, guid: 37cfaa792acbdad4eac98d3b6858835d, type: 3}
+  - {fileID: -1851753934, guid: 37cfaa792acbdad4eac98d3b6858835d, type: 3}
+  - {fileID: 138526959, guid: 37cfaa792acbdad4eac98d3b6858835d, type: 3}
+  - {fileID: -1578770228, guid: 37cfaa792acbdad4eac98d3b6858835d, type: 3}
+  - {fileID: 1777367312, guid: 37cfaa792acbdad4eac98d3b6858835d, type: 3}
+  timeSecondsPerFrame: 0.075
