@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.WebSockets;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -19,7 +18,7 @@ public class Card : MonoBehaviour
 
 	XRGrabInteractable interactable;
 	Animator animator;
-	PlayQuickSound audio;
+	PlayQuickSound audioQuickSound;
 	DuelSocket lastSocket;
 	public CardsScriptableObj cardStats;
 
@@ -63,7 +62,7 @@ public class Card : MonoBehaviour
 	{
 		interactable = GetComponent<XRGrabInteractable>();
 		animator = GetComponent<Animator>();
-		audio = GetComponent<PlayQuickSound>();
+		audioQuickSound = GetComponent<PlayQuickSound>();
 		interactable.selectEntered.AddListener(OnSelectEnter);
 		interactable.lastSelectExited.AddListener(OnSelectExit);
 
@@ -118,7 +117,7 @@ public class Card : MonoBehaviour
 	{
 		if (canBeMoved || forceSacrifice)
 		{
-			AudioSource.PlayClipAtPoint(cardSacrificeSound, transform.position, audio.volume);
+			AudioSource.PlayClipAtPoint(cardSacrificeSound, transform.position, audioQuickSound.volume);
 			CardGameManager.instance.ConsumeMana(-1);
 			DestroyCard(false);
 		}
@@ -375,7 +374,7 @@ public class Card : MonoBehaviour
 		CardGameManager.instance.UnregisterCard(this);
 		lastSocket.UnsocketCard();
 
-		if (_playDestroySfx) AudioSource.PlayClipAtPoint(cardDestroySound, transform.position, audio.volume);
+		if (_playDestroySfx) AudioSource.PlayClipAtPoint(cardDestroySound, transform.position, audioQuickSound.volume);
 		Destroy(gameObject);
 	}
 
@@ -418,7 +417,7 @@ public class Card : MonoBehaviour
 
 	public void PlayAudio(AudioClip _audioClip)
 	{
-		audio.sound = _audioClip;
-		audio.Play();
+		audioQuickSound.sound = _audioClip;
+		audioQuickSound.Play();
 	}
 }

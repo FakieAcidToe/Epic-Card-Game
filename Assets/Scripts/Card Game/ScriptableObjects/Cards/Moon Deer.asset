@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31a94e10d7412d84ea2d457356fa36ce, type: 3}
   m_Name: Moon Deer
   m_EditorClassIdentifier: 
-  colour: {fileID: 2100000, guid: 2bbb6dc6dadb3284e8ee14abb21af440, type: 2}
+  colour: {fileID: 2100000, guid: 00871dca9d16d764695f16c0e0f21709, type: 2}
   cardName: Moon Deer
   artwork: {fileID: -138223978, guid: 3a1a8ebea175ddd44b38090bf444cfae, type: 3}
   cost: 4
