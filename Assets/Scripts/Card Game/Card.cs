@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.WebSockets;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -18,6 +19,7 @@ public class Card : MonoBehaviour
 
 	XRGrabInteractable interactable;
 	Animator animator;
+	PlayQuickSound audio;
 	DuelSocket lastSocket;
 	public CardsScriptableObj cardStats;
 
@@ -56,6 +58,7 @@ public class Card : MonoBehaviour
 	{
 		interactable = GetComponent<XRGrabInteractable>();
 		animator = GetComponent<Animator>();
+		audio = GetComponent<PlayQuickSound>();
 		interactable.selectEntered.AddListener(OnSelectEnter);
 		interactable.lastSelectExited.AddListener(OnSelectExit);
 
@@ -140,8 +143,8 @@ public class Card : MonoBehaviour
 						DuelTableSocket tableSocket = newSocket as DuelTableSocket;
 						if (tableSocket != null)
 						{
-							tableSocket.ParticleBurst();
-							tableSocket.PlaySpriteParticle(cardStats.spawnParticleSprite);
+							if (cardStats.shouldSpawnParticles) tableSocket.ParticleBurst(cardStats.spawnParticleColour);
+							if (cardStats.spawnParticleSprite != null) tableSocket.PlaySpriteParticle(cardStats.spawnParticleSprite);
 						}
 
 						// unlink old duel socket
@@ -192,9 +195,11 @@ public class Card : MonoBehaviour
 		animator.SetBool("showHologram", lastSocket == null ? false : lastSocket.shouldShowHologram);
 	}
 
-	public void Attack(int _playerNum, int _slotNum)
+	public IEnumerator Attack(int _playerNum, int _slotNum)
 	{
 		animator.SetTrigger("attackTrigger");
+		audio.sound = cardStats.attackWhooshSound;
+		audio.Play();
 
 		//selfAttackingEvent.Raise();
 		anyAttackingEvent.Raise();
@@ -205,10 +210,23 @@ public class Card : MonoBehaviour
 				ExecuteEffects(ability.effects);
 		}
 
+		// wait for animation to hit
+		yield return new WaitForSeconds(0.15f);
+
+		// deal damage
 		CardGameManager manager = CardGameManager.instance;
 		DuelField damagedPlayer = manager.GetPlayers()[_playerNum];
-		Card damagedCard = damagedPlayer.frontTableSockets[_slotNum].GetSocketedCard();
+		DuelTableSocket damagedSocket = damagedPlayer.frontTableSockets[_slotNum];
+		Card damagedCard = damagedSocket.GetSocketedCard();
 		int damageAmount = attack;
+
+		if (damageAmount > 0)
+		{
+			damagedSocket.PlaySpriteParticle(cardStats.attackParticleSprite);
+
+			audio.sound = cardStats.attackHitSound;
+			audio.Play();
+		}
 
 		if (damagedCard != null) // damage defending card
 		{
@@ -216,7 +234,10 @@ public class Card : MonoBehaviour
 
 			if (damageAmount > 0) // bleedthrough excess damage
 			{
-				damagedCard = damagedPlayer.backTableSockets[_slotNum].GetSocketedCard();
+				damagedSocket = damagedPlayer.backTableSockets[_slotNum];
+				damagedCard = damagedSocket.GetSocketedCard();
+
+				damagedSocket.PlaySpriteParticle(cardStats.attackParticleSprite);
 				if (damagedCard != null) // damage 2nd defending card
 					damagedCard.TakeDamage(damageAmount);
 				else // no 2nd defending card
@@ -237,6 +258,7 @@ public class Card : MonoBehaviour
 		cardHealth.text = health.ToString(); // update text
 
 		if (health == 0) DestroyCard();
+		else if (_damage > 0) animator.SetTrigger("hurtTrigger");
 
 		return excessDamage; // return extra damage for bleedthrough
 	}
@@ -267,7 +289,7 @@ public class Card : MonoBehaviour
 
 	public IEnumerator GoToLastSocket2Sec()
 	{
-		yield return new WaitForSecondsRealtime(2);
+		yield return new WaitForSeconds(2);
 		GoToLastSocket();
 	}
 

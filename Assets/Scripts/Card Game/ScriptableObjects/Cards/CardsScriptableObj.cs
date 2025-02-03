@@ -11,6 +11,11 @@ public class CardsScriptableObj : ScriptableObject
 	public int attack;
 	public int health;
 	public SpriteParticle spawnParticleSprite;
+	public bool shouldSpawnParticles;
+	public Gradient spawnParticleColour;
+	public SpriteParticle attackParticleSprite;
+	public AudioClip attackWhooshSound;
+	public AudioClip attackHitSound;
 	[TextArea] public string effect;
 	public List<CardAbility> cardAbilities;
 

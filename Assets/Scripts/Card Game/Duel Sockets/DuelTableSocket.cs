@@ -6,6 +6,7 @@ public class DuelTableSocket : DuelSocket
 {
 	[SerializeField] bool isFrontRow;
 	[SerializeField] ParticleSystem particles;
+	[SerializeField] Gradient particleColourGradient;
 	[SerializeField] SpriteParticlePlayer spriteParticles;
 
 	public bool GetIsFrontRow()
@@ -15,7 +16,16 @@ public class DuelTableSocket : DuelSocket
 
 	public void ParticleBurst()
 	{
+		ParticleSystem.ColorOverLifetimeModule col = particles.colorOverLifetime;
+		col.color = particleColourGradient;
+
 		particles.Play();
+	}
+
+	public void ParticleBurst(Gradient _particleColourGradient)
+	{
+		particleColourGradient = _particleColourGradient;
+		ParticleBurst();
 	}
 
 	public void PlaySpriteParticle(SpriteParticle _spriteParticle)

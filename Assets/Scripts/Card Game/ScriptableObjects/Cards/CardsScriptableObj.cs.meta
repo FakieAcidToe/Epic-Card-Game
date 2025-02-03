@@ -7,6 +7,9 @@ MonoImporter:
   - colour: {fileID: 2100000, guid: 2bbb6dc6dadb3284e8ee14abb21af440, type: 2}
   - artwork: {fileID: 1299568195, guid: 3a1a8ebea175ddd44b38090bf444cfae, type: 3}
   - spawnParticleSprite: {fileID: 11400000, guid: c5c88bc8d44b16241b11df83fd6b794b, type: 2}
+  - attackParticleSprite: {fileID: 11400000, guid: 0d796577ef31ac542b49a80252ff6090, type: 2}
+  - attackWhooshSound: {fileID: 8300000, guid: 4995750420922f94fb0b8cd9ebb22493, type: 3}
+  - attackHitSound: {fileID: 8300000, guid: 0420b92a2ada44f43a06625d74de9a7b, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
