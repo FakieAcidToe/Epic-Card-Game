@@ -51,7 +51,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 3
   attackParticleSprite: {fileID: 11400000, guid: 0d796577ef31ac542b49a80252ff6090, type: 2}
-  attackWhooshSound: {fileID: 8300000, guid: e17ef7c85c01a6145b69adbf54e64781, type: 3}
+  attackWhooshSound: {fileID: 8300000, guid: ffe99f7793400ca42a78ce41ff488805, type: 3}
   attackHitSound: {fileID: 8300000, guid: c7ca63851abf93e47bed8b31a669aaa0, type: 3}
   effect: 
   cardAbilities: []

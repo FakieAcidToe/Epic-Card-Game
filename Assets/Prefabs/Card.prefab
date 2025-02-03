@@ -373,6 +373,9 @@ MonoBehaviour:
   selfAttackingEvent: {fileID: 11400000, guid: 862d115f3a0a01846b5879f3ae11500f, type: 2}
   anyAttackingEvent: {fileID: 11400000, guid: 2249082a0583354468a93b206345d851, type: 2}
   endPhaseEvent: {fileID: 11400000, guid: 5b304a6bb1b1b1749a47510b8d4f86cd, type: 2}
+  cardPlaySound: {fileID: 8300000, guid: 4752467d22837304eb63f343dcf4c459, type: 3}
+  cardSacrificeSound: {fileID: 8300000, guid: 0ca981ac08cd48547a3680a5e4ee7e56, type: 3}
+  cardDestroySound: {fileID: 8300000, guid: 0c88b37c63b68e84b8c65cb005bacc0d, type: 3}
 --- !u!114 &2247174526839531631
 MonoBehaviour:
   m_ObjectHideFlags: 0

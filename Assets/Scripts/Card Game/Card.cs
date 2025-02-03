@@ -54,6 +54,11 @@ public class Card : MonoBehaviour
 	[SerializeField] GameEvent anyAttackingEvent;
 	[SerializeField] GameEvent endPhaseEvent;
 
+	[Header("Card SFX")]
+	[SerializeField] AudioClip cardPlaySound;
+	[SerializeField] AudioClip cardSacrificeSound;
+	[SerializeField] AudioClip cardDestroySound;
+
 	void Awake()
 	{
 		interactable = GetComponent<XRGrabInteractable>();
@@ -113,8 +118,9 @@ public class Card : MonoBehaviour
 	{
 		if (canBeMoved || forceSacrifice)
 		{
+			AudioSource.PlayClipAtPoint(cardSacrificeSound, transform.position, audio.volume);
 			CardGameManager.instance.ConsumeMana(-1);
-			DestroyCard();
+			DestroyCard(false);
 		}
 	}
 
@@ -127,6 +133,7 @@ public class Card : MonoBehaviour
 		if (socketInteractor != null) // if interactor is a socket (not hand controller)
 		{
 			DuelSocket newSocket = socketInteractor.GetComponent<DuelSocket>();
+
 			if (lastSocket != newSocket) // if old and new sockets are different
 			{
 				Card potentialExistingCard = newSocket.GetSocketedCard();
@@ -146,6 +153,7 @@ public class Card : MonoBehaviour
 							if (cardStats.shouldSpawnParticles) tableSocket.ParticleBurst(cardStats.spawnParticleColour);
 							if (cardStats.spawnParticleSprite != null) tableSocket.PlaySpriteParticle(cardStats.spawnParticleSprite);
 						}
+						PlayAudio(cardPlaySound);
 
 						// unlink old duel socket
 						lastSocket.UnsocketCard();
@@ -162,6 +170,8 @@ public class Card : MonoBehaviour
 				}
 				else if (canBeMoved && potentialExistingCard != null && lastSocket != null && lastSocket is DuelTableSocket) // swap case: if new socket has card, and this grabbed card has a table socket
 				{
+					PlayAudio(cardPlaySound);
+
 					DuelSocket oldSocket = lastSocket;
 		
 					// unlink old duel socket
@@ -174,6 +184,8 @@ public class Card : MonoBehaviour
 				}
 				else if (canBeMoved && potentialExistingCard == null) // success case: empty socket
 				{
+					PlayAudio(cardPlaySound);
+
 					if (lastSocket != null)
 						lastSocket.UnsocketCard(); // unlink old socket
 		
@@ -198,8 +210,7 @@ public class Card : MonoBehaviour
 	public IEnumerator Attack(int _playerNum, int _slotNum)
 	{
 		animator.SetTrigger("attackTrigger");
-		audio.sound = cardStats.attackWhooshSound;
-		audio.Play();
+		PlayAudio(cardStats.attackWhooshSound);
 
 		//selfAttackingEvent.Raise();
 		anyAttackingEvent.Raise();
@@ -223,9 +234,7 @@ public class Card : MonoBehaviour
 		if (damageAmount > 0)
 		{
 			damagedSocket.PlaySpriteParticle(cardStats.attackParticleSprite);
-
-			audio.sound = cardStats.attackHitSound;
-			audio.Play();
+			PlayAudio(cardStats.attackHitSound);
 		}
 
 		if (damagedCard != null) // damage defending card
@@ -361,10 +370,12 @@ public class Card : MonoBehaviour
 		_socket.SocketCard(this, true);
 	}
 
-	public void DestroyCard()
+	public void DestroyCard(bool _playDestroySfx = true)
 	{
 		CardGameManager.instance.UnregisterCard(this);
 		lastSocket.UnsocketCard();
+
+		if (_playDestroySfx) AudioSource.PlayClipAtPoint(cardDestroySound, transform.position, audio.volume);
 		Destroy(gameObject);
 	}
 
@@ -403,5 +414,11 @@ public class Card : MonoBehaviour
 	public int GetOrigPlayerNum()
 	{
 		return origPlayerNumber;
+	}
+
+	public void PlayAudio(AudioClip _audioClip)
+	{
+		audio.sound = _audioClip;
+		audio.Play();
 	}
 }
