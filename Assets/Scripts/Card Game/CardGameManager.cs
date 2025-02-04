@@ -276,7 +276,7 @@ public class CardGameManager : MonoBehaviour
 
 		for (int i = 0; i < sockets.Count; ++i)
 		{
-			Card attackingCard = sockets[i].GetSocketedCard();
+			Card attackingCard = sockets[i].GetSocketedCard() as Card;
 			if (attackingCard != null)
 				yield return StartCoroutine(attackingCard.Attack(targetPlayerNum, sockets.Count - 1 - i));
 			yield return new WaitForSecondsRealtime(0.3f);

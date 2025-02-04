@@ -8,7 +8,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 [RequireComponent(typeof(XRGrabInteractable))]
-public class Card : MonoBehaviour
+public class Card : CardBase
 {
 	public enum CardState
 	{
@@ -16,10 +16,8 @@ public class Card : MonoBehaviour
 		table
 	}
 
-	XRGrabInteractable interactable;
 	Animator animator;
-	PlayQuickSound audioQuickSound;
-	DuelSocket lastSocket;
+	[Header("Cardgame Card variables")]
 	public CardsScriptableObj cardStats;
 
 	CardState cardState = CardState.hand;
@@ -30,10 +28,6 @@ public class Card : MonoBehaviour
 
 	int attack;
 	int health;
-
-	IEnumerator socketCoroutine; // for the 2 sec throwing
-
-	public bool canBeMoved = false;
 
 	[Header("Card Part References")]
 	[SerializeField] MeshRenderer cardFront;
@@ -54,9 +48,11 @@ public class Card : MonoBehaviour
 	[SerializeField] GameEvent endPhaseEvent;
 
 	[Header("Card SFX")]
-	[SerializeField] AudioClip cardPlaySound;
 	[SerializeField] AudioClip cardSacrificeSound;
-	[SerializeField] AudioClip cardDestroySound;
+
+	[Header("Prefab References")]
+	[SerializeField] DamageNumbers damageNumberPrefab;
+	[SerializeField] Transform damageNumberSpawnPosition;
 
 	void Awake()
 	{
@@ -135,7 +131,7 @@ public class Card : MonoBehaviour
 
 			if (lastSocket != newSocket) // if old and new sockets are different
 			{
-				Card potentialExistingCard = newSocket.GetSocketedCard();
+				Card potentialExistingCard = newSocket.GetSocketedCard() as Card;
 
 				if (canBeMoved && newSocket is DuelDiscardSocket)
 				{
@@ -227,7 +223,7 @@ public class Card : MonoBehaviour
 		CardGameManager manager = CardGameManager.instance;
 		DuelField damagedPlayer = manager.GetPlayers()[_playerNum];
 		DuelTableSocket damagedSocket = damagedPlayer.frontTableSockets[_slotNum];
-		Card damagedCard = damagedSocket.GetSocketedCard();
+		Card damagedCard = damagedSocket.GetSocketedCard() as Card;
 		int damageAmount = attack;
 
 		if (damageAmount > 0)
@@ -243,7 +239,7 @@ public class Card : MonoBehaviour
 			if (damageAmount > 0) // bleedthrough excess damage
 			{
 				damagedSocket = damagedPlayer.backTableSockets[_slotNum];
-				damagedCard = damagedSocket.GetSocketedCard();
+				damagedCard = damagedSocket.GetSocketedCard() as Card;
 
 				damagedSocket.PlaySpriteParticle(cardStats.attackParticleSprite);
 				if (damagedCard != null) // damage 2nd defending card
@@ -264,6 +260,9 @@ public class Card : MonoBehaviour
 		health -= _damage;
 		if (health < 0) health = 0;
 		cardHealth.text = health.ToString(); // update text
+
+
+		if (_damage > 0) InstantiateDamageNumber(_damage);
 
 		if (health == 0) DestroyCard();
 		else if (_damage > 0) animator.SetTrigger("hurtTrigger");
@@ -287,24 +286,6 @@ public class Card : MonoBehaviour
 
 			if (gameObject.activeInHierarchy) StartCoroutine(socketCoroutine);
 		}
-	}
-
-	public IEnumerator GoToLastSocketNextFrame()
-	{
-		yield return new WaitForNextFrameUnit();
-		GoToLastSocket();
-	}
-
-	public IEnumerator GoToLastSocket2Sec()
-	{
-		yield return new WaitForSeconds(2);
-		GoToLastSocket();
-	}
-
-	public void GoToLastSocket()
-	{
-		if (interactable != null && !interactable.isSelected && lastSocket != null)
-			lastSocket.SocketCard(this, true);
 	}
 
 	public void InitCardInfo(CardsScriptableObj _cardStats)
@@ -357,19 +338,7 @@ public class Card : MonoBehaviour
 		UpdateCardInteractionLayerMask();
 	}
 
-	public void SocketCard(DuelSocket _socket, bool _alsoForceSelectEnter = false)
-	{
-		lastSocket = _socket;
-		lastSocket.SocketCard(this, _alsoForceSelectEnter);
-		UpdateHologramStatus();
-	}
-
-	public void PlayCard(DuelSocket _socket)
-	{
-		_socket.SocketCard(this, true);
-	}
-
-	public void DestroyCard(bool _playDestroySfx = true)
+	public new void DestroyCard(bool _playDestroySfx = true)
 	{
 		CardGameManager.instance.UnregisterCard(this);
 		lastSocket.UnsocketCard();
@@ -394,11 +363,6 @@ public class Card : MonoBehaviour
 		ReturnToHand();
 	}
 
-	public DuelSocket GetSocket()
-	{
-		return lastSocket;
-	}
-
 	public void SetPlayerNum(int _playerNumber, bool _alsoSetOrigPlayer = false)
 	{
 		playerNumber = _playerNumber;
@@ -415,9 +379,9 @@ public class Card : MonoBehaviour
 		return origPlayerNumber;
 	}
 
-	public void PlayAudio(AudioClip _audioClip)
+	void InstantiateDamageNumber(int _damage)
 	{
-		audioQuickSound.sound = _audioClip;
-		audioQuickSound.Play();
+		DamageNumbers numbers = Instantiate(damageNumberPrefab, damageNumberSpawnPosition.position, damageNumberSpawnPosition.rotation);
+		numbers.SetDamageNumber(_damage);
 	}
 }

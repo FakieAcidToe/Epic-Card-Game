@@ -7,7 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 public class DuelSocket : MonoBehaviour
 {
 	public bool shouldShowHologram = false;
-	Card currentSocketedCard;
+	CardBase currentSocketedCard;
 
 	XRSocketInteractor interactor;
 	DuelDisk ownerDisk;
@@ -22,7 +22,7 @@ public class DuelSocket : MonoBehaviour
 		interactor.interactionLayers = _layers;
 	}
 
-	public void SocketCard(Card _card, bool _alsoForceSelectEnter = true)
+	public void SocketCard(CardBase _card, bool _alsoForceSelectEnter = true)
 	{
 		if (currentSocketedCard == null || currentSocketedCard == _card)
 		{
@@ -61,7 +61,7 @@ public class DuelSocket : MonoBehaviour
 		return interactor;
 	}
 
-	public Card GetSocketedCard()
+	public CardBase GetSocketedCard()
 	{
 		return currentSocketedCard;
 	}

@@ -82,7 +82,7 @@ public class DuelDisk : MonoBehaviour
 	{
 		List<Card> cards = new List<Card>();
 		foreach (DuelSocket socket in sockets)
-			cards.Add(socket.GetSocketedCard());
+			cards.Add(socket.GetSocketedCard() as Card);
 		return cards;
 	}
 }

@@ -15,9 +15,9 @@ MonoBehaviour:
   colour: {fileID: 2100000, guid: 00871dca9d16d764695f16c0e0f21709, type: 2}
   cardName: Unicorn
   artwork: {fileID: 1299568195, guid: 3a1a8ebea175ddd44b38090bf444cfae, type: 3}
-  cost: 6
-  attack: 5
-  health: 5
+  cost: 5
+  attack: 4
+  health: 2
   spawnParticleSprite: {fileID: 11400000, guid: ed31b06979dc92d43b00ab38b6d4ecdb, type: 2}
   shouldSpawnParticles: 1
   spawnParticleColour:
