@@ -27,6 +27,9 @@ public class CardGameManager : MonoBehaviour
 	CardPlayerCPU cpu;
 
 	[SerializeField] GameEvent endPhaseEvent;
+	[SerializeField] UnityEvent onVictoryAnnounce;
+	[SerializeField] UnityEvent onDefeatAnnounce;
+	[SerializeField] UnityEvent onGameEnd;
 
 	public enum TurnPhase
 	{
@@ -34,7 +37,8 @@ public class CardGameManager : MonoBehaviour
 		DrawPhase, // draw 1 card
 		MainPhase, // do stuff
 		AttackPhase, // attack stuff
-		EndPhase // pass to next player in draw phase
+		EndPhase, // pass to next player in draw phase
+		Finish // game ended
 	}
 
 	void Awake()
@@ -104,6 +108,9 @@ public class CardGameManager : MonoBehaviour
 				break;
 			case TurnPhase.EndPhase:
 				StartCoroutine(EndPhaseCoroutine());
+				break;
+			case TurnPhase.Finish:
+				StartCoroutine(FinishCoroutine());
 				break;
 		}
 	}
@@ -189,12 +196,13 @@ public class CardGameManager : MonoBehaviour
 		phaseText.text = "Start!";
 
 		yield return StartCoroutine(WaitForAllDiscs());
+		yield return new WaitForSeconds(3f);
 
 		// draw 5 (numStartingCards) cards each
 		for (uint i = 0; i < numStartingCards; ++i)
 		{
 			foreach (DuelField player in players) player.deck.ForceDrawACard(true);
-			yield return new WaitForSecondsRealtime(0.2f);
+			yield return new WaitForSeconds(0.2f);
 		}
 
 		// next phase
@@ -211,7 +219,7 @@ public class CardGameManager : MonoBehaviour
 
 		if (turnCount == 0 || players[turnPlayer].deck.cardsInDeck.Count <= 0) // dont draw on turn 0
 		{
-			yield return new WaitForSecondsRealtime(1);
+			yield return new WaitForSeconds(1);
 		}
 		else
 		{
@@ -225,7 +233,7 @@ public class CardGameManager : MonoBehaviour
 			}
 			else
 			{
-				yield return new WaitForSecondsRealtime(1);
+				yield return new WaitForSeconds(1);
 				ForceDrawACard(turnPlayer);
 			}
 		}
@@ -269,7 +277,7 @@ public class CardGameManager : MonoBehaviour
 	{
 		phaseText.text = "Attack Phase";
 
-		yield return new WaitForSecondsRealtime(0.5f);
+		yield return new WaitForSeconds(0.5f);
 
 		List<DuelTableSocket> sockets = players[turnPlayer].frontTableSockets;
 		int targetPlayerNum = GetNextTurnPlayerNum();
@@ -279,10 +287,10 @@ public class CardGameManager : MonoBehaviour
 			Card attackingCard = sockets[i].GetSocketedCard() as Card;
 			if (attackingCard != null)
 				yield return StartCoroutine(attackingCard.Attack(targetPlayerNum, sockets.Count - 1 - i));
-			yield return new WaitForSecondsRealtime(0.3f);
+			yield return new WaitForSeconds(0.3f);
 		}
 
-		yield return new WaitForSecondsRealtime(1);
+		yield return new WaitForSeconds(1);
 
 		// next phase
 		SetPhase(TurnPhase.EndPhase);
@@ -292,15 +300,40 @@ public class CardGameManager : MonoBehaviour
 	{
 		phaseText.text = "End Phase";
 
-		yield return new WaitForSecondsRealtime(0.5f);
+		yield return new WaitForSeconds(0.5f);
 
 		endPhaseEvent.Raise();
 
-		yield return new WaitForSecondsRealtime(0.5f);
+		yield return new WaitForSeconds(0.5f);
 
-		// next phase
-		NextTurnPlayer();
-		SetPhase(TurnPhase.DrawPhase);
+		if (players[GetNextTurnPlayerNum()].GetLife() == 0)
+		{
+			// opponent died
+			SetPhase(TurnPhase.Finish);
+		}
+		else
+		{
+			// next phase
+			NextTurnPlayer();
+			SetPhase(TurnPhase.DrawPhase);
+		}
+	}
+
+	IEnumerator FinishCoroutine()
+	{
+		if (players[0].GetLife() == 0)
+		{
+			phaseText.text = "Defeat...";
+			onDefeatAnnounce.Invoke();
+		}
+		else
+		{
+			phaseText.text = "Victory!";
+			onVictoryAnnounce.Invoke();
+		}
+
+		yield return new WaitForSeconds(5f);
+		onGameEnd.Invoke();
 	}
 
 	public void RegisterCard(Card _card)

@@ -155,6 +155,8 @@ public class Card : CardBase
 		
 						// remember this new socket for later
 						SocketCard(newSocket, false);
+
+						UpdateHologramStatus();
 					}
 					else // insuffucient mana
 					{

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
@@ -7,6 +8,8 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 public class DuelSocket : MonoBehaviour
 {
 	public bool shouldShowHologram = false;
+	public UnityEvent onCardSocket;
+
 	CardBase currentSocketedCard;
 
 	XRSocketInteractor interactor;
@@ -28,6 +31,7 @@ public class DuelSocket : MonoBehaviour
 		{
 			if (_alsoForceSelectEnter) interactor.interactionManager.SelectEnter((IXRSelectInteractor)interactor, _card.GetComponent<XRGrabInteractable>());
 			currentSocketedCard = _card;
+			onCardSocket.Invoke();
 		}
 		else
 			Debug.LogError("DuelSocket attempted to socket a card while already having a card.");
