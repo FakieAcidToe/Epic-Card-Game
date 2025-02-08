@@ -16,7 +16,7 @@ MonoBehaviour:
   cardName: Edgy Lance
   artwork: {fileID: 2056111544, guid: 3a1a8ebea175ddd44b38090bf444cfae, type: 3}
   cost: 3
-  attack: 4
+  attack: 3
   health: 2
   spawnParticleSprite: {fileID: 11400000, guid: c5c88bc8d44b16241b11df83fd6b794b, type: 2}
   shouldSpawnParticles: 0
@@ -53,5 +53,10 @@ MonoBehaviour:
   attackParticleSprite: {fileID: 11400000, guid: a6da9b9522db92342b66c4982787e280, type: 2}
   attackWhooshSound: {fileID: 8300000, guid: 1b667e3b2dc31a6499d6b81e7fde8efd, type: 3}
   attackHitSound: {fileID: 8300000, guid: 58c0da484af7ca84190f92626239cf2c, type: 3}
-  effect: 
-  cardAbilities: []
+  effect: 'During the End Phase:
+
+    Increase Attack by 1.'
+  cardAbilities:
+  - activationTime: {fileID: 11400000, guid: 5b304a6bb1b1b1749a47510b8d4f86cd, type: 2}
+    effects:
+    - {fileID: 11400000, guid: 01d6c3b919c1696478ae431f44c4b680, type: 2}

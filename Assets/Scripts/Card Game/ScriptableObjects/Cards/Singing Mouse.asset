@@ -53,5 +53,10 @@ MonoBehaviour:
   attackParticleSprite: {fileID: 11400000, guid: 3ce34e866f3a55e4aa8751c75f682151, type: 2}
   attackWhooshSound: {fileID: 8300000, guid: 4995750420922f94fb0b8cd9ebb22493, type: 3}
   attackHitSound: {fileID: 8300000, guid: 0420b92a2ada44f43a06625d74de9a7b, type: 3}
-  effect: 
-  cardAbilities: []
+  effect: 'On summon:
+
+    Increase allies'' attack by 1.'
+  cardAbilities:
+  - activationTime: {fileID: 11400000, guid: af544115dba2e0a4894d3602990e6b03, type: 2}
+    effects:
+    - {fileID: 11400000, guid: 66c6c8f3017b376469c58246c1263e14, type: 2}

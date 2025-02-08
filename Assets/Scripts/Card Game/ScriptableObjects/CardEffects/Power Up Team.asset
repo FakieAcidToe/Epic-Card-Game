@@ -9,8 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fa912f9b9285e6448a1a44b3e3ff65a, type: 3}
-  m_Name: Draw a Card
+  m_Script: {fileID: 11500000, guid: a34cee519d69846468858bcde7bed02d, type: 3}
+  m_Name: Power Up Team
   m_EditorClassIdentifier: 
-  drawAmount: 1
-  fieldOnly: 1
+  increaseAttackAmount: 1
+  powerSelf: 0
+  powerHandCards: 0
+  powerTableCards: 1
+  powerOwnTeam: 1
+  powerEnemyTeam: 0

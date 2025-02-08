@@ -104,4 +104,9 @@ public class SaveFileSystem : MonoBehaviour
 
 		return deckList;
 	}
+
+	public List<CardsScriptableObj> GetCardDex()
+	{
+		return cardDex;
+	}
 }

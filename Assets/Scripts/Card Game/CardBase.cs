@@ -116,7 +116,7 @@ public class CardBase : MonoBehaviour
 	public void SocketCard(DuelSocket _socket, bool _alsoForceSelectEnter = false)
 	{
 		lastSocket = _socket;
-		lastSocket.SocketCard(this, _alsoForceSelectEnter);
+		lastSocket?.SocketCard(this, _alsoForceSelectEnter);
 	}
 
 	public void PlayCard(DuelSocket _socket)

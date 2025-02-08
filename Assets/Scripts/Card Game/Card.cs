@@ -179,6 +179,23 @@ public class Card : CardBase
 					SocketCard(newSocket, false);
 					potentialExistingCard.SocketCard(oldSocket, false);
 				}
+				else if (canBeMoved && potentialExistingCard != null && lastSocket == null) // empty swap case: if new socket has card, and this grabbed card no socket
+				{
+					DuelTableSocket tableSocket = newSocket as DuelTableSocket;
+					if (tableSocket != null)
+					{
+						if (cardStats.shouldSpawnParticles) tableSocket.ParticleBurst(cardStats.spawnParticleColour);
+						if (cardStats.spawnParticleSprite != null) tableSocket.PlaySpriteParticle(cardStats.spawnParticleSprite);
+					}
+					PlayAudio(cardPlaySound);
+
+					// unlink old duel socket
+					newSocket.UnsocketCard();
+
+					// remember new socket for later
+					SocketCard(newSocket, false);
+					potentialExistingCard.SocketCard(null, false);
+				}
 				else if (canBeMoved && potentialExistingCard == null) // success case: empty socket
 				{
 					PlayAudio(cardPlaySound);
@@ -247,11 +264,11 @@ public class Card : CardBase
 				if (damagedCard != null) // damage 2nd defending card
 					damagedCard.TakeDamage(damageAmount);
 				else // no 2nd defending card
-					manager.DamagePlayer(attack, _playerNum);
+					manager.DamagePlayer(damageAmount, _playerNum);
 			}
 		}
 		else // no defending card
-			manager.DamagePlayer(attack, _playerNum);
+			manager.DamagePlayer(damageAmount, _playerNum);
 	}
 
 	public int TakeDamage(int _damage)
@@ -270,6 +287,13 @@ public class Card : CardBase
 		else if (_damage > 0) animator.SetTrigger("hurtTrigger");
 
 		return excessDamage; // return extra damage for bleedthrough
+	}
+
+	public void AttackStatChange(int _amount)
+	{
+		attack += _amount;
+		if (attack < 0) attack = 0;
+		cardAttack.text = attack.ToString(); // update text
 	}
 
 	void OnSelectExit(SelectExitEventArgs arg)
