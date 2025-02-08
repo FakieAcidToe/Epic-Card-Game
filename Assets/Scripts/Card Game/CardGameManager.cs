@@ -54,7 +54,7 @@ public class CardGameManager : MonoBehaviour
 
 		for (int i = 0; i < players.Count; ++i)
 		{
-			players[i].deck.SetDeck(SaveFileSystem.Instance.deck);
+			players[i].deck.SetDeck(players[i].isPlayer ? SaveFileSystem.Instance.deck : SaveFileSystem.Instance.GetNewStarterDeck());
 			players[i].SetPlayerNumber(i);
 			players[i].InitLifeMana(startingLifePoints, startingMana);
 			players[i].HintArrowActive(false);
@@ -239,21 +239,20 @@ public class CardGameManager : MonoBehaviour
 		}
 		else
 		{
-			players[turnPlayer].HintArrowActive(true);
-
 			if (players[turnPlayer].isPlayer)
 			{
+				players[turnPlayer].HintArrowActive(true);
 				players[turnPlayer].deck.canDraw = true;
 
 				// wait for player to draw a card
 				while (players[turnPlayer].deck.canDraw)
 					yield return new WaitForNextFrameUnit();
+
 				players[turnPlayer].HintArrowActive(false);
 			}
 			else
 			{
 				yield return new WaitForSeconds(1);
-				players[turnPlayer].HintArrowActive(false);
 				ForceDrawACard(turnPlayer);
 			}
 		}

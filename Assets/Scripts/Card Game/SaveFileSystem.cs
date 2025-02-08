@@ -109,4 +109,9 @@ public class SaveFileSystem : MonoBehaviour
 	{
 		return cardDex;
 	}
+
+	public List<CardsScriptableObj> GetNewStarterDeck()
+	{
+		return new List<CardsScriptableObj>(starterDeck);
+	}
 }
