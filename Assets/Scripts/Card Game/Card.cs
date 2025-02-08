@@ -380,6 +380,7 @@ public class Card : CardBase
 			lastSocket.UnsocketCard();
 			SocketCard(CardGameManager.instance.GetPlayers()[playerNumber].duelDisk.AddSocket(), true); // tell the card to go to hand when dropped
 			ChangeState(CardState.hand);
+			UpdateHologramStatus();
 		}
 	}
 
