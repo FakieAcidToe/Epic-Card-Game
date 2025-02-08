@@ -8,9 +8,13 @@ public class FadeScreen : MonoBehaviour
 	public Color fadeColor;
 	MeshRenderer rend;
 
-	void Start()
+	void Awake()
 	{
 		rend = GetComponent<MeshRenderer>();
+	}
+
+	void Start()
+	{
 		if (fadeOnStart)
 			FadeIn();
 	}

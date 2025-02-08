@@ -44,24 +44,22 @@ public class CardGameManager : MonoBehaviour
 	void Awake()
 	{
 		if (instance != null && instance != this) Destroy(this);
-		else
-		{
-			instance = this;
-
-			allCardsInPlay = new List<Card>();
-			cpu = GetComponent<CardPlayerCPU>();
-
-			for (int i = 0; i < players.Count; ++i)
-			{
-				players[i].deck.ShuffleDeck();
-				players[i].SetPlayerNumber(i);
-				players[i].InitLifeMana(startingLifePoints, startingMana);
-			}
-		}
+		else instance = this;
 	}
 
 	void Start()
 	{
+		allCardsInPlay = new List<Card>();
+		cpu = GetComponent<CardPlayerCPU>();
+
+		for (int i = 0; i < players.Count; ++i)
+		{
+			players[i].deck.SetDeck(SaveFileSystem.Instance.deck);
+			players[i].SetPlayerNumber(i);
+			players[i].InitLifeMana(startingLifePoints, startingMana);
+			players[i].HintArrowActive(false);
+		}
+
 		SetPhase(TurnPhase.Start);
 	}
 
@@ -191,6 +189,24 @@ public class CardGameManager : MonoBehaviour
 		}
 	}
 
+	IEnumerator WaitForAllCardsToGoSocket()
+	{
+		// wait for all cards to be on their lastSocket
+		while (true)
+		{
+			bool allOnSocket = true;
+			foreach (Card card in allCardsInPlay)
+				if (!card.IsOnSocket())
+				{
+					allOnSocket = false;
+					break;
+				}
+			if (allOnSocket)
+				break;
+			yield return new WaitForNextFrameUnit();
+		}
+	}
+
 	IEnumerator StartPhaseCoroutine()
 	{
 		phaseText.text = "Start!";
@@ -223,6 +239,8 @@ public class CardGameManager : MonoBehaviour
 		}
 		else
 		{
+			players[turnPlayer].HintArrowActive(true);
+
 			if (players[turnPlayer].isPlayer)
 			{
 				players[turnPlayer].deck.canDraw = true;
@@ -230,13 +248,17 @@ public class CardGameManager : MonoBehaviour
 				// wait for player to draw a card
 				while (players[turnPlayer].deck.canDraw)
 					yield return new WaitForNextFrameUnit();
+				players[turnPlayer].HintArrowActive(false);
 			}
 			else
 			{
 				yield return new WaitForSeconds(1);
+				players[turnPlayer].HintArrowActive(false);
 				ForceDrawACard(turnPlayer);
 			}
 		}
+
+		yield return StartCoroutine(WaitForAllCardsToGoSocket());
 
 		// next phase
 		SetPhase(TurnPhase.MainPhase);

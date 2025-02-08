@@ -386,4 +386,10 @@ public class Card : CardBase
 		DamageNumbers numbers = Instantiate(damageNumberPrefab, damageNumberSpawnPosition.position, damageNumberSpawnPosition.rotation);
 		numbers.SetDamageNumber(_damage);
 	}
+
+	public bool IsOnSocket()
+	{
+		return interactable.IsSelected(lastSocket.GetInteractor());
+
+	}
 }

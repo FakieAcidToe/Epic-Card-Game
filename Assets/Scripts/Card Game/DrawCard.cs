@@ -123,4 +123,11 @@ public class DrawCard : MonoBehaviour
 			cardsInDeck[randomIndex] = temp;
 		}
 	}
+
+	public void SetDeck(List<CardsScriptableObj> _deck)
+	{
+		cardsInDeck = new List<CardsScriptableObj>(_deck);
+		UpdateDeckHeight();
+		ShuffleDeck();
+	}
 }

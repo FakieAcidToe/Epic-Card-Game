@@ -234,27 +234,7 @@ MonoBehaviour:
     m_Bits: 2
   spawnPosition: {fileID: 7148682863294083380}
   canDraw: 0
-  cardsInDeck:
-  - {fileID: 11400000, guid: 1eba8d8fd03010f4d95c2a46cd36a008, type: 2}
-  - {fileID: 11400000, guid: 67c4ea6ee0034eb4eab4ad22cd207239, type: 2}
-  - {fileID: 11400000, guid: 71abf169fdbc7f842b007008ee7e575d, type: 2}
-  - {fileID: 11400000, guid: 2639ff19bf3224643a19ae651b44783b, type: 2}
-  - {fileID: 11400000, guid: f2d5e38416387d54b92057a74aa56049, type: 2}
-  - {fileID: 11400000, guid: e3249d7eac477e34da35abf2247a57a4, type: 2}
-  - {fileID: 11400000, guid: af95bf3c541f03d44b1fa8cd5e76335f, type: 2}
-  - {fileID: 11400000, guid: 1eba8d8fd03010f4d95c2a46cd36a008, type: 2}
-  - {fileID: 11400000, guid: 581f61caf9a2bfd40a1a64e4310023c0, type: 2}
-  - {fileID: 11400000, guid: e3249d7eac477e34da35abf2247a57a4, type: 2}
-  - {fileID: 11400000, guid: 4998e0950578e444eb41ebc07ef487a9, type: 2}
-  - {fileID: 11400000, guid: e3249d7eac477e34da35abf2247a57a4, type: 2}
-  - {fileID: 11400000, guid: 914d9b501068c344ab769fe7739ea1dd, type: 2}
-  - {fileID: 11400000, guid: e5f3e52c17b177744adb8fa86a0b20bb, type: 2}
-  - {fileID: 11400000, guid: 2b53780343fecd740b9d5ed1cd457384, type: 2}
-  - {fileID: 11400000, guid: 581f61caf9a2bfd40a1a64e4310023c0, type: 2}
-  - {fileID: 11400000, guid: 2b53780343fecd740b9d5ed1cd457384, type: 2}
-  - {fileID: 11400000, guid: 5179032e916df4e4fb175cb5185a0649, type: 2}
-  - {fileID: 11400000, guid: 71abf169fdbc7f842b007008ee7e575d, type: 2}
-  - {fileID: 11400000, guid: 8c62b59615b7950489beeab829c7ac57, type: 2}
+  cardsInDeck: []
   shuffleButton: 0
   onDraw:
     m_PersistentCalls:

@@ -12,6 +12,7 @@ public class DuelField : MonoBehaviour
 	public List<DuelTableSocket> frontTableSockets;
 	public List<DuelTableSocket> backTableSockets;
 	public DuelDiscardSocket discardSocket;
+	public GameObject hintArrow;
 
 	[SerializeField] uint lifePoints = 20;
 	[SerializeField] uint mana = 4;
@@ -77,5 +78,10 @@ public class DuelField : MonoBehaviour
 	public int GetPlayerNumber()
 	{
 		return playerNumber;
+	}
+
+	public void HintArrowActive(bool _active)
+	{
+		hintArrow.SetActive(_active);
 	}
 }
