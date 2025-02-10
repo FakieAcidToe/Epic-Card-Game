@@ -9,11 +9,11 @@ public class SinHover : MonoBehaviour
 
 	void Start()
 	{
-		originalTransform = transform.position;
+		originalTransform = transform.localPosition;
 	}
 
 	void Update()
 	{
-		transform.position = originalTransform + amplitude * Mathf.Sin(2 * Mathf.PI * frequency * Time.time) * transform.up;
+		transform.localPosition = originalTransform + amplitude * Mathf.Sin(2 * Mathf.PI * frequency * Time.time) * transform.up;
 	}
 }

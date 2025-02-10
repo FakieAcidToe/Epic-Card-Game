@@ -69,14 +69,10 @@ public class SaveFileSystem : MonoBehaviour
 			file.Close();
 
 			deck = IntToCards(data.deck);
-
-			Debug.Log(data.deck);
 		}
 		else
 		{
 			deck = new List<CardsScriptableObj>(starterDeck);
-
-			Debug.Log("File not found");
 		}
 	}
 
