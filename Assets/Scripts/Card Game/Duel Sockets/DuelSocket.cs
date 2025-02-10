@@ -29,12 +29,15 @@ public class DuelSocket : MonoBehaviour
 	{
 		if (currentSocketedCard == null || currentSocketedCard == _card)
 		{
-			if (_alsoForceSelectEnter) interactor.interactionManager.SelectEnter((IXRSelectInteractor)interactor, _card.GetComponent<XRGrabInteractable>());
-			currentSocketedCard = _card;
-			onCardSocket.Invoke();
+			if (_card == null) Debug.LogError("DuelSocket attempted to socket a null card.");
+			else
+			{
+				if (_alsoForceSelectEnter) interactor.interactionManager.SelectEnter((IXRSelectInteractor)interactor, _card.GetComponent<XRGrabInteractable>());
+				currentSocketedCard = _card;
+				onCardSocket.Invoke();
+			}
 		}
-		else
-			Debug.LogError("DuelSocket attempted to socket a card while already having a card.");
+		else Debug.LogError("DuelSocket attempted to socket a card while already having a card.");
 	}
 
 	public void UnsocketCard()

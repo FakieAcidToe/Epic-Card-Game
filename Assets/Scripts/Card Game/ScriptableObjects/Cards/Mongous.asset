@@ -50,7 +50,7 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  attackParticleSprite: {fileID: 0}
+  attackParticleSprite: {fileID: 11400000, guid: 82ed7b16a3dbdc244939fde29f0c6f0b, type: 2}
   attackWhooshSound: {fileID: 8300000, guid: 4995750420922f94fb0b8cd9ebb22493, type: 3}
   attackHitSound: {fileID: 8300000, guid: 0420b92a2ada44f43a06625d74de9a7b, type: 3}
   effect: 

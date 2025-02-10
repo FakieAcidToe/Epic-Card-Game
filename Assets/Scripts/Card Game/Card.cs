@@ -200,7 +200,7 @@ public class Card : CardBase
 				{
 					PlayAudio(cardPlaySound);
 
-					if (lastSocket != null)
+					if (lastSocket != null && lastSocket.GetSocketedCard() != null)
 						lastSocket.UnsocketCard(); // unlink old socket
 		
 					// remember this new socket for later
@@ -404,6 +404,16 @@ public class Card : CardBase
 	public int GetOrigPlayerNum()
 	{
 		return origPlayerNumber;
+	}
+
+	public int GetAttack()
+	{
+		return attack;
+	}
+
+	public int GetHealth()
+	{
+		return health;
 	}
 
 	void InstantiateDamageNumber(int _damage)

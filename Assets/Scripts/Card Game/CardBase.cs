@@ -121,7 +121,17 @@ public class CardBase : MonoBehaviour
 
 	public void PlayCard(DuelSocket _socket)
 	{
-		_socket.SocketCard(this, true);
+		CardBase existingCard = _socket.GetSocketedCard();
+		if (existingCard == null)
+			_socket.SocketCard(this, true);
+		else if (_socket != lastSocket)
+		{
+			lastSocket.UnsocketCard();
+			_socket.UnsocketCard();
+
+			lastSocket.SocketCard(existingCard, true);
+			_socket.SocketCard(this, true);
+		}
 	}
 
 	public void DestroyCard(bool _playDestroySfx = true)
