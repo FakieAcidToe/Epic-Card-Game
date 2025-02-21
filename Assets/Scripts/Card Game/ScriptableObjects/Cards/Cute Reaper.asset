@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Cute Reaper
   m_EditorClassIdentifier: 
   colour: {fileID: 2100000, guid: 2bbb6dc6dadb3284e8ee14abb21af440, type: 2}
+  colourDisabled: {fileID: 2100000, guid: b6c5a297005a8b846a8122718a9776fe, type: 2}
   cardName: Cute Reaper
   artwork: {fileID: -229994637, guid: 3a1a8ebea175ddd44b38090bf444cfae, type: 3}
   cost: 3

@@ -37,6 +37,8 @@ public class Card : CardBase
 	[SerializeField] TextMeshPro cardCost;
 	[SerializeField] TextMeshPro cardAttack;
 	[SerializeField] TextMeshPro cardHealth;
+	[SerializeField] TextMeshPro cardAttackHologram;
+	[SerializeField] TextMeshPro cardHealthHologram;
 	[SerializeField] TextMeshPro cardEffect;
 	List<CardsScriptableObj.CardAbility> cardAbilities;
 
@@ -81,6 +83,8 @@ public class Card : CardBase
 	void SummonActions()
 	{
 		ChangeState(CardState.table);
+		CardGameManager.instance.UpdateTurnPlayerCardMaterial();
+		CardMaterialEnable(true);
 
 		//selfSummonEvent.Raise();
 		anySummonEvent.Raise();
@@ -115,6 +119,7 @@ public class Card : CardBase
 		{
 			AudioSource.PlayClipAtPoint(cardSacrificeSound, transform.position, audioQuickSound.volume);
 			CardGameManager.instance.ConsumeMana(-1);
+			CardGameManager.instance.UpdateTurnPlayerCardMaterial();
 			DestroyCard(false);
 		}
 	}
@@ -279,7 +284,7 @@ public class Card : CardBase
 		health -= _damage;
 		if (health < 0) health = 0;
 		cardHealth.text = health.ToString(); // update text
-
+		cardHealthHologram.text = cardHealth.text;
 
 		if (_damage > 0) InstantiateDamageNumber(_damage);
 
@@ -294,6 +299,7 @@ public class Card : CardBase
 		attack += _amount;
 		if (attack < 0) attack = 0;
 		cardAttack.text = attack.ToString(); // update text
+		cardAttackHologram.text = cardAttack.text;
 	}
 
 	void OnSelectExit(SelectExitEventArgs arg)
@@ -323,18 +329,28 @@ public class Card : CardBase
 	public void InitCardInfo()
 	{
 		if (cardStats == null) return;
-		cardFront.material = cardStats.colour;
+		CardMaterialEnable(true);
 		cardName.text = cardStats.name;
 		cardCost.text = cardStats.cost.ToString();
 		cardArt.sprite = cardStats.artwork;
 		cardHologramArt.sprite = cardStats.artwork;
 		cardAttack.text = cardStats.attack.ToString();
+		cardAttackHologram.text = cardAttack.text;
 		cardHealth.text = cardStats.health.ToString();
+		cardHealthHologram.text = cardHealth.text;
 		cardEffect.text = cardStats.effect.ToString();
 		cardAbilities = cardStats.cardAbilities;
 
 		attack = cardStats.attack;
 		health = cardStats.health;
+	}
+
+	public void CardMaterialEnable(bool _enable)
+	{
+		if (_enable)
+			cardFront.material = cardStats.colour;
+		else
+			cardFront.material = cardStats.colourDisabled;
 	}
 
 	public void UpdateCardInteractionLayerMask()
@@ -380,6 +396,7 @@ public class Card : CardBase
 			lastSocket.UnsocketCard();
 			SocketCard(CardGameManager.instance.GetPlayers()[playerNumber].duelDisk.AddSocket(), true); // tell the card to go to hand when dropped
 			ChangeState(CardState.hand);
+			CardMaterialEnable(false);
 			UpdateHologramStatus();
 		}
 	}

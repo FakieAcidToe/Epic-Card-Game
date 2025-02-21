@@ -5,6 +5,7 @@ using UnityEngine;
 public class CardsScriptableObj : ScriptableObject
 {
 	public Material colour;
+	public Material colourDisabled;
 	public string cardName;
 	public Sprite artwork;
 	public int cost;

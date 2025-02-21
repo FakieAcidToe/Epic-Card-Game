@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Rage Alicorn
   m_EditorClassIdentifier: 
   colour: {fileID: 2100000, guid: 2edb876ca20f6ea40b4ebb61f96f1df1, type: 2}
+  colourDisabled: {fileID: 2100000, guid: 2ecc20adda7ca4549ba1a2d0f1b78eeb, type: 2}
   cardName: Rage Alicorn
   artwork: {fileID: -261892488, guid: 3a1a8ebea175ddd44b38090bf444cfae, type: 3}
   cost: 7

@@ -272,9 +272,18 @@ public class CardGameManager : MonoBehaviour
 		unityEvent.RemoveListener(action.Invoke);
 	}
 
+	public void UpdateTurnPlayerCardMaterial()
+	{
+		// set all material of cards in hand based on mana
+		foreach (Card card in allCardsInPlay)
+			if (turnPlayer == card.GetPlayerNum() && card.GetSocket() is DuelDiskSocket)
+				card.CardMaterialEnable(card.cardStats.cost <= players[turnPlayer].GetMana());
+	}
+
 	IEnumerator MainPhaseCoroutine()
 	{
 		phaseText.text = "Main Phase";
+		UpdateTurnPlayerCardMaterial();
 
 		if (players[turnPlayer].isPlayer)
 		{
