@@ -31,6 +31,10 @@ public class CardGameManager : MonoBehaviour
 	[SerializeField] UnityEvent onDefeatAnnounce;
 	[SerializeField] UnityEvent onGameEnd;
 
+	[SerializeField, TextArea] string[] tutorialText;
+	[SerializeField] TextMeshProUGUI tutorialTextGUI;
+	[SerializeField] GameObject tutorialObj;
+
 	public enum TurnPhase
 	{
 		Start, // draw 5(?) cards to start the game
@@ -287,8 +291,17 @@ public class CardGameManager : MonoBehaviour
 
 		if (players[turnPlayer].isPlayer)
 		{
+			uint turn = turnCount / 2;
+			if (turn < tutorialText.Length)
+			{
+				tutorialTextGUI.text = tutorialText[turn];
+				tutorialObj.SetActive(true);
+			}
+
 			// wait for player to press the button
 			yield return StartCoroutine(WaitUntilEvent(players[turnPlayer].button.onPress));
+
+			tutorialObj.SetActive(false);
 		}
 		else
 		{

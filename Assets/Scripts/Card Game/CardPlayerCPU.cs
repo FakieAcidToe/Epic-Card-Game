@@ -73,7 +73,7 @@ public class CardPlayerCPU : MonoBehaviour
 				else if (cardPos[i] <= 6)
 					freeSocket = _player.backTableSockets[cardPos[i] - 4];
 
-				if (freeSocket != null)
+				if (freeSocket != null && card != null)
 				{
 					Card existingCard = freeSocket.GetSocketedCard() as Card;
 					if (card.GetSocket() is DuelDiskSocket && existingCard != null)
@@ -86,11 +86,8 @@ public class CardPlayerCPU : MonoBehaviour
 							existingCard.PlayCard(_player.discardSocket);
 					}
 
-					if (card != null)
-					{
-						yield return new WaitForSecondsRealtime(1f);
-						card.PlayCard(freeSocket);
-					}
+					yield return new WaitForSecondsRealtime(1f);
+					card.PlayCard(freeSocket);
 				}
 			}
 		}

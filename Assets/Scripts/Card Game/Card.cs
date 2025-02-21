@@ -252,28 +252,26 @@ public class Card : CardBase
 
 		if (damageAmount > 0)
 		{
-			damagedSocket.PlaySpriteParticle(cardStats.attackParticleSprite);
 			PlayAudio(cardStats.attackHitSound);
-		}
 
-		if (damagedCard != null) // damage defending card
-		{
-			damageAmount = damagedCard.TakeDamage(damageAmount);
-
-			if (damageAmount > 0) // bleedthrough excess damage
+			if (damagedCard != null) // damage defending card
 			{
-				damagedSocket = damagedPlayer.backTableSockets[_slotNum];
-				damagedCard = damagedSocket.GetSocketedCard() as Card;
-
 				damagedSocket.PlaySpriteParticle(cardStats.attackParticleSprite);
-				if (damagedCard != null) // damage 2nd defending card
-					damagedCard.TakeDamage(damageAmount);
-				else // no 2nd defending card
-					manager.DamagePlayer(damageAmount, _playerNum);
+				damageAmount = damagedCard.TakeDamage(damageAmount);
 			}
 		}
-		else // no defending card
-			manager.DamagePlayer(damageAmount, _playerNum);
+
+		if (damageAmount > 0) // bleedthrough excess damage
+		{
+			damagedSocket = damagedPlayer.backTableSockets[_slotNum];
+			damagedCard = damagedSocket.GetSocketedCard() as Card;
+
+			damagedSocket.PlaySpriteParticle(cardStats.attackParticleSprite);
+			if (damagedCard != null) // damage 2nd defending card
+				damagedCard.TakeDamage(damageAmount);
+			else // no 2nd defending card
+				manager.DamagePlayer(damageAmount, _playerNum);
+		}
 	}
 
 	public int TakeDamage(int _damage)
