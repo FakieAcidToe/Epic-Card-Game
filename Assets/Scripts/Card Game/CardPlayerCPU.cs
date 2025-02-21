@@ -60,6 +60,8 @@ public class CardPlayerCPU : MonoBehaviour
 			}
 		}
 
+		yield return new WaitForSecondsRealtime(1f);
+
 		// actually play the cards
 		for (int i = 0; i < allMyCards.Count; ++i)
 		{
@@ -75,23 +77,22 @@ public class CardPlayerCPU : MonoBehaviour
 
 				if (freeSocket != null && card != null)
 				{
-					Card existingCard = freeSocket.GetSocketedCard() as Card;
+					CardBase existingCard = freeSocket.GetSocketedCard();
 					if (card.GetSocket() is DuelDiskSocket && existingCard != null)
 					{
-						yield return new WaitForSecondsRealtime(1f);
 						DuelTableSocket freeBackrow = GetFreeBackRow(_player);
 						if (freeBackrow != null)
 							existingCard.PlayCard(freeBackrow);
 						else
 							existingCard.PlayCard(_player.discardSocket);
+						yield return new WaitForSecondsRealtime(1f);
 					}
 
-					yield return new WaitForSecondsRealtime(1f);
 					card.PlayCard(freeSocket);
+					yield return new WaitForSecondsRealtime(1f);
 				}
 			}
 		}
-		yield return new WaitForSecondsRealtime(1f);
 	}
 
 	DuelTableSocket GetFreeBackRow(DuelField _player)
